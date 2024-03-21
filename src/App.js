@@ -1,24 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route, } from 'react-router-dom';
+
+import ContactPage from "./components/ContactPage.js";
+import BookGradShootPage from "./components/BookGradShootPage.js";
+import LandingPage from "./components/LandingPage.js";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<LandingPage/>}/>
+          <Route path="/contact" element={<ContactPage/>}/>
+          <Route path="/grad-shoot-booking" element={<BookGradShootPage/>}/>
+        </Routes>
+      </div>
+      
+    </BrowserRouter>
+    
   );
 }
 
