@@ -1,0 +1,23 @@
+.landingPage__bookButtonContainer {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.landingPage__photos{
+    display: flex;
+    justify-content: center;
+    padding: 10px 100px;
+    column-gap: 30px;
+}
+
+.landingPage__michaelPhoto {
+    width: 400px;
+    height: auto;
+    cursor: pointer;
+}
+.landingPage__nateChristinaPhoto {
+    width: 400px;
+    height: auto;
+    cursor: pointer;
+}
