@@ -11,13 +11,40 @@
     column-gap: 30px;
 }
 
-.landingPage__michaelPhoto {
+.landingPage__imageContainer {
+    position: relative;
+}
+
+.landingPage__image1 {
     width: 400px;
     height: auto;
     cursor: pointer;
 }
+
+.landingPage__image1Text {
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    /*border-color: black;
+    border-width: 2px;*/
+    font-size: 40px;     
+    text-shadow: 0 0 3px #444444, 0 0 5px #444444;
+
+}
+
 .landingPage__nateChristinaPhoto {
     width: 400px;
     height: auto;
     cursor: pointer;
+}
+
+.photo {
+    transition: .25s;
+}
+
+.photo:hover {
+    scale: 101%;
+    box-shadow: 10px 10px 3px rgb(184, 184, 184);
 }

@@ -19,9 +19,11 @@ function LandingPage() {
     return (
         <div className="landingPage">
             <div className="landingPage__photos">
-                <img className="landingPage__michaelPhoto" onClick={navigateToWorks} src={michaelPortrait} alt="michaelPortrait"/>
-                <img className="landingPage__nateChristinaPhoto" onClick={navigateToWorks} src={nateChristinaPortrait} alt="Nate and Christina"/>
-                
+                <div className="landingPage__imageContainer">
+                    <img className="landingPage__image1 photo" onClick={navigateToWorks} src={michaelPortrait} alt="michaelPortrait"/>
+                    <div className="landingPage__image1Text">Graduation</div>
+                </div>
+                <img className="landingPage__nateChristinaPhoto photo" onClick={navigateToWorks} src={nateChristinaPortrait} alt="Nate and Christina"/>
             </div>
             
             <div className="landingPage__bookButtonContainer">

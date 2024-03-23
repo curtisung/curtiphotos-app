@@ -1,5 +1,11 @@
 .header {
     min-width: 100vw;
+    padding: 0 0 10px 0;
+    transition: .25s;
+}
+
+.header:hover {
+    box-shadow: 0 3px 5px rgb(211, 211, 211);
 }
 
 .header__linksContainer {
