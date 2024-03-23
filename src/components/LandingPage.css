@@ -46,5 +46,5 @@
 
 .photo:hover {
     scale: 101%;
-    box-shadow: 10px 10px 3px rgb(184, 184, 184);
+    box-shadow: 6px 6px 3px rgb(153, 153, 153);
 }
