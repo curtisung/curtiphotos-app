@@ -13,6 +13,8 @@
 
 .landingPage__imageContainer {
     position: relative;
+    cursor: pointer;
+
 }
 
 .landingPage__image1 {
@@ -30,7 +32,7 @@
     /*border-color: black;
     border-width: 2px;*/
     font-size: 40px;     
-    text-shadow: 0 0 3px #444444, 0 0 5px #444444;
+    text-shadow: 0 0 3px #202020, 0 0 5px #444444;
 
 }
 
@@ -46,5 +48,5 @@
 
 .photo:hover {
     scale: 101%;
-    box-shadow: 6px 6px 3px rgb(153, 153, 153);
+    box-shadow: 6px 8px 3px rgb(153, 153, 153);
 }
