@@ -25,8 +25,7 @@ function LandingPage() {
                 </div>
                 <div className="landingPage__imageContainer" onClick={navigateToWorks}>
                     <img className="landingPage__nateChristinaPhoto photo" onClick={navigateToWorks} src={nateChristinaPortrait} alt="Nate and Christina"/>
-                    <div className="landingPage__image1Text">Graduation</div>
-
+                    <div className="landingPage__image1Text">Weddings</div>
                 </div>
             </div>
             
