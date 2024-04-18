@@ -1,0 +1,76 @@
+.bookShootPage {
+  display: flex;
+  flex-direction: column;
+}
+
+.pageHeader {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.pageTitle {
+  margin-top: 0 !important;
+}
+
+.bookingPageInformation {
+  padding: 0 20px;
+  text-align: center;
+}
+
+.clientInputFieldsContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.fullWidth {
+  width: 500px;
+}
+
+.clientInputFields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 5px;
+  padding: 0 0 20px 0;
+  /* max-width: 50%; */
+  row-gap: 10px;
+  width: 500px;
+}
+
+.selectDropDown {
+  margin: 10px;
+}
+
+.selectContactMethodContainer {
+  min-width: none;
+}
+
+.selectContactMethod {
+}
+
+.clientSchool {
+  padding-top: 15px;
+}
+
+.homeButton {
+  max-width: 10px;
+}
+
+.bookShootPage__bookButtonContainer {
+  display: flex;
+}
+
+.bookShootPage__homeButton {
+  align-self: left;
+}
+
+.contactContainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.contactInput {
+  align-self: flex-end;
+}
