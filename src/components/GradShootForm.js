@@ -36,7 +36,7 @@ export default function GradShootForm() {
 
     return (
         <div className="gradShootForm formSection">
-            <div className="formFieldContainer">
+            <div className="formSectionContainer">
               {page === 1 && <PackageSelect formData={formData} setFormData={setFormData}/>}
               {page === 2 && <LocationSelect formData={formData} setFormData={setFormData}/>}
             </div>
@@ -74,6 +74,32 @@ function PackageSelect({ formData, setFormData }) {
 }
 
 
+function NameEntry({formData, setFormData}) {
+  return (
+    <FormControl fullWidth>
+          <TextField
+            id="clientFirstName"
+            label="First Name"
+            variant="standard"
+            required="true"
+          />
+          <TextField
+            id="clientLastName"
+            label="Last Name"
+            variant="standard"
+            required="true"
+          />
+          <TextField
+            id="clientPronouns"
+            label="Pronouns"
+            variant="standard"
+            required="true"
+          />
+        </FormControl>
+  );
+}
+
+
 function LocationSelect({formData, setFormData}) {
   const handleLocationChange = (e) => {
     var locationSet = new Set(formData["locations"]);
@@ -92,7 +118,25 @@ function LocationSelect({formData, setFormData}) {
 
   return (
     <div className="locationSelect">
-      <h2>Select a Location</h2>
+      <h2 className="formSectionHeader">Select a Location</h2>
+
+        <FormControl className="selectDropDown" fullWidth>
+           <InputLabel id="demo-simple-select-label">School</InputLabel>
+           <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="school"
+              onChange={(e) => setFormData({
+                  ...formData,
+                  school: e.target.value,
+              })}>
+            <MenuItem value={"UC Irvine"}>UC Irvine</MenuItem>
+            <MenuItem value={"UC Los Angeles"}>UC Los Angeles</MenuItem>
+            <MenuItem value={"UC Riverside"}>UC Riverside</MenuItem>
+            <MenuItem value={"UC San Diego"}>UC San Diego</MenuItem>
+          </Select>
+      </FormControl>
+      
       <FormControl
               className="locationCheckboxes"
               aria-labelledby="location-select-checkbox-group"
