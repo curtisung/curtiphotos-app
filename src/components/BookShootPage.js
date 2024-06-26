@@ -1,10 +1,9 @@
 import React from "react";
 import "./BookShootPage.css";
-import BookingFormTabs from "./BookingFormTabs";
+import GradShootForm from "./GradShootForm";
 // import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { useState } from "react";
-import { Button } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -29,16 +28,8 @@ function BookShootPage() {
         <div className="bookingPageInformation">{bookingPageInfo}</div>
       </div>
 
-      {/* <BookingFormTabs /> */}
+      <GradShootForm />
 
-      <div className="bookShootPage__navigationButtons">
-        <Button className="bookShootPage__homeButton" variant="outlined">
-          Back
-        </Button>
-        <Button className="bookShootPage__homeButton" variant="contained">
-          Next
-        </Button>
-      </div>
     </div>
   );
 }

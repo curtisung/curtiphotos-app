@@ -22,18 +22,19 @@ export default function BookingFormTabs() {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    console.log(value);
   };
   return (
     <div className="bookingFormTabs">
       <Box sx={{ width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs value={value} onChange={setValue}>
+          <Tabs value={value} onChange={handleChange}>
             <Tab label="Graduation" value={0} />
             <Tab label="Weddings/Events" value={1} />
           </Tabs>
         </Box>
       </Box>
-      ;
+      {value == 0 && <GradShootForm />}
     </div>
   );
 }
@@ -53,6 +54,22 @@ function GradShootForm() {
     <div className="clientInputFieldsContainer">
       <h2>Contact Information</h2>
       <div className="clientInputFields">
+        <FormControl className="selectDropDown" fullWidth>
+          <InputLabel id="demo-simple-select-label">School</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={school}
+            label="school"
+            onChange={handleSchoolChange}
+          >
+            <MenuItem value={"UC Irvine"}>UC Irvine</MenuItem>
+            <MenuItem value={"UC Los Angeles"}>UC Los Angeles</MenuItem>
+            <MenuItem value={"UC Riverside"}>UC Riverside</MenuItem>
+            <MenuItem value={"UC San Diego"}>UC San Diego</MenuItem>
+          </Select>
+        </FormControl>
+
         <FormControl fullWidth>
           <TextField
             id="clientFirstName"
@@ -117,21 +134,6 @@ function GradShootForm() {
               />
             )}
           </div>
-        </FormControl>
-        <FormControl className="selectDropDown" fullWidth>
-          <InputLabel id="demo-simple-select-label">School</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={school}
-            label="school"
-            onChange={handleSchoolChange}
-          >
-            <MenuItem value={"UC Irvine"}>UC Irvine</MenuItem>
-            <MenuItem value={"UC Los Angeles"}>UC Los Angeles</MenuItem>
-            <MenuItem value={"UC Riverside"}>UC Riverside</MenuItem>
-            <MenuItem value={"UC San Diego"}>UC San Diego</MenuItem>
-          </Select>
         </FormControl>
       </div>
     </div>
