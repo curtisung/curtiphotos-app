@@ -49,7 +49,7 @@ export default function GradShootForm() {
               {page === 1 && <NameEntry formData={formData} setFormData={setFormData}/>}
               {page === 2 && <PackageSelect formData={formData} setFormData={setFormData}/>}
               {page === 3 && <LocationSelect formData={formData} setFormData={setFormData}/>}
-              {page === numPages && <ReviewPage formData{formData} setFormData={setFormData}/>}
+              {page === numPages && <ReviewPage formData={formData} setFormData={setFormData}/>}
             </div>
             <div className="navigationButtons">
               <Button className="bookShootPage__Button back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>
