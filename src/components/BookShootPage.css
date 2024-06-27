@@ -5,16 +5,23 @@
 
 .pageHeader {
   text-align: center;
-  margin: 20px 0;
+  margin: 20px 0 0 0;
 }
 
 .pageTitle {
   margin-top: 0 !important;
 }
 
-.bookingPageInformation {
-  padding: 0 20px;
+.bookingPageDescription {
+  padding: 0 100px;
   text-align: center;
+  font-size: large;
+}
+
+.bookingPageRedirectText {
+  padding: 20px 150px 0;
+  text-align: center;
+  font-size: small;
 }
 
 .clientInputFieldsContainer {

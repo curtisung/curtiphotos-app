@@ -193,7 +193,8 @@ function LocationSelect({formData, setFormData}) {
 function ReviewPage({formData, setFormData}) {
   return (
     <div className="reviewPage">
-
+      <h2 className="formSectionHeader">Review Appointment Details</h2>
+      <p>{formData.locations.toString()}</p>
     </div>
   );
 }

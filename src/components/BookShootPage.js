@@ -18,14 +18,15 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
 function BookShootPage() {
-  const bookingPageInfo =
-    "To book a graduation photoshoot, please fill out Grad Shoot form.\nTo book photo or video coverage for weddings and events, fill out the Weddings/Events form to get a quote.";
+  const bookingPageDescription = "Fill out and submit the form below to submit your interest in a Gradutation shoot! Once you have, I will reach out to you to give a quote. Let's capture some memories!";
+  const bookingPageRedirectText = "\nTo book me for other types of photoshoots or wedding/event coverage, please navigate to the Contact page and send a message from there to get a quote.";
 
   return (
     <div className="bookShootPage">
       <div className="pageHeader">
-        <h1 className="pageTitle">Book a Shoot</h1>
-        <div className="bookingPageInformation">{bookingPageInfo}</div>
+        <h1 className="pageTitle">Book a Grad Shoot!</h1>
+        <div className="bookingPageDescription">{bookingPageDescription}</div>
+        <div className="bookingPageRedirectText">{bookingPageRedirectText}</div>
       </div>
       <GradShootForm />
     </div>
