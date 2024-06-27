@@ -27,9 +27,7 @@ function BookShootPage() {
         <h1 className="pageTitle">Book a Shoot</h1>
         <div className="bookingPageInformation">{bookingPageInfo}</div>
       </div>
-
       <GradShootForm />
-
     </div>
   );
 }

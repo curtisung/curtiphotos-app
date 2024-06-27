@@ -54,7 +54,7 @@ function GradShootForm() {
     <div className="clientInputFieldsContainer">
       <h2>Contact Information</h2>
       <div className="clientInputFields">
-        <FormControl className="selectDropDown" fullWidth>
+        <FormControl className="selectDropDownContainer" fullWidth>
           <InputLabel id="demo-simple-select-label">School</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -91,8 +91,8 @@ function GradShootForm() {
           />
         </FormControl>
         <FormControl fullWidth>
-          <div className="contactContainer">
-            <div className="contactRadioButtonsContainer">
+          <div className="contactMethodContainer">
+            <div className="contactMethodRadioButtonsContainer">
               <FormLabel id="demo-radio-buttons-group-label">
                 Preferred Contact Method
               </FormLabel>

@@ -38,10 +38,6 @@
   width: 500px;
 }
 
-.selectDropDown {
-  margin: 10px;
-}
-
 .selectContactMethodContainer {
   min-width: none;
 }
@@ -63,12 +59,6 @@
 
 .bookShootPage__homeButton {
   align-self: left;
-}
-
-.contactContainer {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
 }
 
 .contactInput {

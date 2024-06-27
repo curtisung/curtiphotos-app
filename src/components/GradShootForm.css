@@ -1,7 +1,7 @@
 .formSectionContainer {
-    height: 300px;
+    min-height: 300px;
     display:flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
 }
 
@@ -9,13 +9,53 @@
     text-align: center;
 }
 
+.pronouns.selectDropDownContainer {
+    margin: 20px 0 0 0 !important;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.pronouns.selectDropDown {
+    flex: 1;
+}
+
+.otherPronouns {
+    flex: 1;
+}
+
+.contactMethodContainer {
+    display: flex;
+    align-items: flex-end;    
+    gap: 10px;
+}  
+
+.contactMethodRadioButtonsContainer {
+    margin-top: 16px;
+}
+
+.methodInputContainer {
+    padding-bottom: 3px;
+    display: flex;
+    flex: 2;
+    justify-content: space-around;
+}
+
+.contactRadioButtons {
+    display: flex !important;
+    flex-direction: row !important;
+}
+
+.contactMethodInput {
+    flex-grow: 2;
+    max-width: 50%;
+    padding-bottom: 5px !important;
+}
+
 .locationSelect {
     display:flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    max-width: 95%;
-    
 }
 
 .locationCheckboxes{
