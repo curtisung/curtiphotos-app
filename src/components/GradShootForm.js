@@ -7,7 +7,6 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormControlGroup from "@mui/material/FormControl"
 import FormLabel from "@mui/material/FormLabel";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -25,7 +24,7 @@ export default function GradShootForm() {
         contactMethod: "email",
         email: "",
         phone: null,
-        photoPackage: null,
+        photoPackage: "",
         locations: new Set(),
     });
 
@@ -40,7 +39,6 @@ export default function GradShootForm() {
         return;
       }
       setPage(page+increment);
-      console.log(page+increment);
     }
 
     return (
@@ -95,8 +93,10 @@ function NameEntry({formData, setFormData}) {
     <div className="NameEntry">
       <FormControl fullWidth>
         <h2 className="formSectionHeader">Contact Information</h2>
-        <TextField id="clientFirstName" label="First Name" variant="standard" required={true} onBlur={(e) => handleChangeFirstName(e)} defaultValue={formData.firstName}/>
-        <TextField id="clientLastName" label="Last Name" variant="standard" required={true} onBlur={(e) => handleChangeLastName(e)} defaultValue={formData.lastName}/>
+        <div className="formSectionRow">
+          <TextField className="formSectionItem" id="clientFirstName" label="First Name" variant="standard" required={true} onBlur={(e) => handleChangeFirstName(e)} defaultValue={formData.firstName}/>
+          <TextField className="formSectionItem" id="clientLastName" label="Last Name" variant="standard" required={true} onBlur={(e) => handleChangeLastName(e)} defaultValue={formData.lastName}/>
+        </div>
         <div className="pronouns selectDropDownContainer">
           <FormControl className="pronouns selectDropDown" fullWidth>
             <InputLabel id="demo-simple-select-label" required={true}>Pronouns</InputLabel>
@@ -110,19 +110,18 @@ function NameEntry({formData, setFormData}) {
           {(formData.pronouns === "Other") && <TextField className="otherPronouns" id="otherPronouns" label="Enter your pronouns" variant="standard" required={true} defaultValue={formData.otherPronouns} onBlur={(e) => handleChangeOtherPronouns(e)}/>}
         </div>
         <FormControl fullWidth>
-        <div className="contactMethodContainer">
+          <div className="contactMethodContainer">
+            <TextField className="contactMethodInput" id="contactInput" label="Email" variant="standard" required={true} defaultValue={formData.email} onBlur={(e) => handleChangeEmail(e)}/>
+            <TextField className="contactMethodInput" id="contactInput" label="Phone" variant="standard" required={true} defaultValue={formData.phone} onBlur={(e) => handleChangePhone(e)}/>
+          </div>
           <div className="contactMethodRadioButtonsContainer">
-            <FormLabel id="demo-radio-buttons-group-label" required={true}>Contact Method</FormLabel>
+            <FormLabel id="demo-radio-buttons-group-label" required={true}>Preferred Contact Method</FormLabel>
             <RadioGroup className="contactRadioButtons" aria-labelledby="demo-radio-buttons-group-label" value={formData.contactMethod} name="controlled-radio-buttons-group" onChange={(e) => handleChangeContactMethod(e)}>
               <FormControlLabel value="email" control={<Radio />} label="Email"/>
               <FormControlLabel value="phone" control={<Radio />} label="Phone"/>
             </RadioGroup>
           </div>
-          <TextField className="contactMethodInput" id="contactInput" label="Email" variant="standard" required={true} defaultValue={formData.email} onBlur={(e) => handleChangeEmail(e)}/>
-          <TextField className="contactMethodInput" id="contactInput" label="Phone" variant="standard" required={true} defaultValue={formData.phone} onBlur={(e) => handleChangePhone(e)}/>
-        </div>
-      </FormControl>
-
+        </FormControl>
       </FormControl>
     </div>
   );
@@ -190,11 +189,38 @@ function LocationSelect({formData, setFormData}) {
 }
 
 
+/**
+  * Displays the details of the appointment to the user.
+  * Need dynamic displays for pronouns & locations
+  */
 function ReviewPage({formData, setFormData}) {
+  
+  const arrayLocationItems = [];
+  formData.locations.forEach((location) => {
+    arrayLocationItems.push(<li>{location}</li>);
+  });
+  
   return (
     <div className="reviewPage">
       <h2 className="formSectionHeader">Review Appointment Details</h2>
-      <p>{formData.locations.toString()}</p>
+      <h3 className="reviewPage__contactHeader">Contact Details</h3>
+      <div className="reviewPage__firstNameContainer appointmentDetailSection">
+        <h4 className="reviewPage__firstName">First Name:</h4>
+        <p>{formData.firstName}</p>  
+      </div>
+      <div className="reviewPage__lastNameContainer appointmentDetailSection">
+        <h4 className="reviewPage__lastName">Last Name:</h4>
+        <p>{formData.lastName}</p>  
+      </div>
+      <div className="reviewPage__pronounsContainer appointmentDetailSection">
+        <h4 className="reviewPage__pronouns">Pronouns:</h4>
+        <p>{formData.pronouns}</p>  
+      </div>
+      <div className="reviewPage__locationsContainer appointmentDetailSection">
+        <h4 className="reviewPage_locationsTitle">Locations:</h4>
+        <ul>{arrayLocationItems}</ul>
+      </div>
+      
     </div>
   );
 }

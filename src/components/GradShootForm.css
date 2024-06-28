@@ -9,6 +9,17 @@
     text-align: center;
 }
 
+.formSectionRow {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
+}
+
+.formSectionItem {
+    flex: 1;
+}
+
 .pronouns.selectDropDownContainer {
     margin: 20px 0 0 0 !important;
     display: flex;
@@ -32,7 +43,13 @@
 
 .contactMethodRadioButtonsContainer {
     margin-top: 16px;
+    display: flex;
+    flex-direction: row;
 }
+
+.contactMethodRadioButtonsContainer > FormLabel {
+}
+ 
 
 .methodInputContainer {
     padding-bottom: 3px;
@@ -81,4 +98,13 @@
     display: flex;
     align-items: center;
     flex-direction: column;    
+}
+
+.appointmentDetailSection {
+    display: flex;
+    flex-direction: row;
+}
+
+.appointmentDetailSection > h4 {
+    text-align: center;
 }
