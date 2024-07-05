@@ -11,10 +11,12 @@ import FormLabel from "@mui/material/FormLabel";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 
 export default function GradShootForm() {
-    const numPages = 4;
     const [page, setPage] = useState(1);
     const [formData, setFormData] = useState({
         firstName: "",
@@ -28,14 +30,22 @@ export default function GradShootForm() {
         locations: new Set(),
     });
 
+    const formPages = [
+      <NameEntry formData={formData} setFormData={setFormData}/>,
+      <PackageSelect formData={formData} setFormData={setFormData}/>,
+      <DateSelect formData={formData} setFormData={setFormData}/>,
+      <LocationSelect formData={formData} setFormData={setFormData}/>,
+      <ReviewPage formData={formData} setFormData={setFormData}/>
+    ];
+
     const leftButtonText = "Back";    
-    const rightButtonText = page === numPages ? "Submit" : "Next";
+    const rightButtonText = page === formPages.length ? "Submit" : "Next";
 
     /**
       * Page cannot be less than 1 and more than 3 for now
       */
     const changePage = (increment) => {
-      if ((increment === -1 && page === 1) || (increment === 1 && page === numPages)){
+      if ((increment === -1 && page === 1) || (increment === 1 && page === formPages.length)){
         return;
       }
       setPage(page+increment);
@@ -44,10 +54,7 @@ export default function GradShootForm() {
     return (
         <div className="gradShootForm formSection">
             <div className="formSectionContainer">
-              {page === 1 && <NameEntry formData={formData} setFormData={setFormData}/>}
-              {page === 2 && <PackageSelect formData={formData} setFormData={setFormData}/>}
-              {page === 3 && <LocationSelect formData={formData} setFormData={setFormData}/>}
-              {page === numPages && <ReviewPage formData={formData} setFormData={setFormData}/>}
+              {formPages[page-1]}
             </div>
             <div className="navigationButtons">
               <Button className="bookShootPage__Button back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>
@@ -153,6 +160,19 @@ function PackageSelect({ formData, setFormData }) {
 }
 
 
+function DateSelect({formData, setFormData}) {
+  return (
+    <div className="dateSelect">
+      <h2 className="formSectionHeader">Select an Appointment Date</h2>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateCalendar/>
+      </LocalizationProvider>
+      
+    </div>
+  );
+}
+
+
 function LocationSelect({formData, setFormData}) {
   const handleLocationChange = (e) => {
     var locationSet = new Set(formData.locations);
@@ -169,7 +189,7 @@ function LocationSelect({formData, setFormData}) {
 
   return (
     <div className="locationSelect">
-      <h2 className="formSectionHeader">Select a Location</h2>
+      <h2 className="formSectionHeader">Select Locations</h2>
         <FormControl className="selectDropDownContainer" fullWidth>
           <InputLabel id="demo-simple-select-label">School</InputLabel>
           <Select labelId="demo-simple-select-label" id="demo-simple-select" label="school" defaultValue={formData.school} onChange={(e) => setFormData({...formData, school: e.target.value,})}>
