@@ -32,8 +32,8 @@ export default function GradShootForm() {
 
     const formPages = [
       <NameEntry formData={formData} setFormData={setFormData}/>,
-      <PackageSelect formData={formData} setFormData={setFormData}/>,
       <DateSelect formData={formData} setFormData={setFormData}/>,
+      <PackageSelect formData={formData} setFormData={setFormData}/>,
       <LocationSelect formData={formData} setFormData={setFormData}/>,
       <ReviewPage formData={formData} setFormData={setFormData}/>
     ];
@@ -164,9 +164,11 @@ function DateSelect({formData, setFormData}) {
   return (
     <div className="dateSelect">
       <h2 className="formSectionHeader">Select an Appointment Date</h2>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateCalendar/>
-      </LocalizationProvider>
+      <div className="calendar">
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateCalendar/>
+        </LocalizationProvider>
+      </div>
       
     </div>
   );
