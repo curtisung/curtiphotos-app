@@ -1,7 +1,12 @@
-.formSectionContainer {
-  min-height: 400px;
+.formSection {
   display: flex;
   /* align-items: center; */
+  flex-direction: column;
+}
+
+.formSectionContainer {
+  /* min-height: 400px; */
+  display: flex;
   justify-content: center;
 }
 
@@ -11,7 +16,10 @@
 
 .formSectionBody {
     display: flex;
+    flex-direction: column; 
     justify-content: center;
+    /* min-height: 325px; */
+    align-items: center;
 }
 
 .formSectionRow {
@@ -100,11 +108,10 @@ Location
 /*
 Review Page
 */
-
-.formSection {
+.appointmentDetailsContainer {
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .appointmentDetailSection {
@@ -121,10 +128,12 @@ Buttons
 */
 .navigationButtons {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: flex-end;
   margin: 5px;
   gap: 10px;
+  margin-right: 37%;
+  margin-top: 40px;
 }
 
 .bookShootPage__Button {
