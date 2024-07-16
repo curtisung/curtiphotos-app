@@ -150,9 +150,9 @@ Review Page
 border
 */
 .separationBorder {
-  width: 100%;
+  width: 60px;
   margin: 20px 0;
-  border-top:  1px solid rgb(214, 214, 214);
+  border-top:  1px solid #4093e6;
 }
 
 /*
@@ -160,7 +160,7 @@ Buttons
 */
 
 .navigationButtons {
-  align-self: flex-end;
+  align-self: center;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
