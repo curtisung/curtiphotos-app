@@ -22,6 +22,7 @@ export default function GradShootForm() {
         firstName: "",
         lastName: "",
         pronouns: "",
+        otherPronouns: "",
         school: "",
         contactMethod: "email",
         email: "",
@@ -59,7 +60,7 @@ export default function GradShootForm() {
             </div>
             <hr className="separationBorder"/>
             <div className="navigationButtons">
-              <Button className="bookShootPage__Button back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>
+              {(page > 1) && <Button className="bookShootPage__Button back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>}
               <Button className="bookShootPage__Button next" variant="contained" onClick={() => changePage(1)}>{rightButtonText}</Button>
             </div>
         </div>
@@ -175,7 +176,7 @@ function DateSelect({formData, setFormData}) {
 
   return (
     <div className="dateSelect page">
-      <h2 className="formSectionHeader">Select an Appointment Date</h2>
+      <h2 className="formSectionHeader">Select a Shoot Date</h2>
       <div className="formSectionBody">
         <div className="calendar">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -204,7 +205,7 @@ function LocationSelect({formData, setFormData}) {
 
   return (
     <div className="locationSelect page">
-      <h2 className="formSectionHeader">Select Locations</h2>
+      <h2 className="formSectionHeader">Select Shoot Location</h2>
       <div className="formSectionBody">
         <FormControl className="selectDropDownContainer" fullWidth>
           <InputLabel id="demo-simple-select-label">School</InputLabel>
@@ -216,6 +217,7 @@ function LocationSelect({formData, setFormData}) {
           </Select>
         </FormControl>
         <FormControl className="locationCheckboxes" aria-labelledby="location-select-checkbox-group" defaultValue={null} name="location-select-checkbox-group" onChange={(e) => handleLocationChange(e)}>
+          <h3>Campus Spots:</h3>
           <FormControlLabel control={<Checkbox defaultChecked={formData.locations.has("Location 1")}/>} value="Location 1" label="Location 1"/>
           <FormControlLabel control={<Checkbox defaultChecked={formData.locations.has("Location 2")}/>} value="Location 2" label="Location 2"/>
           <FormControlLabel control={<Checkbox defaultChecked={formData.locations.has("Location 3")}/>} value="Location 3" label="Location 3"/>
@@ -232,33 +234,53 @@ function LocationSelect({formData, setFormData}) {
   */
 function ReviewPage({formData, setFormData}) {
   
-  const arrayLocationItems = [];
+  const arrayShootSpots = [];
   formData.locations.forEach((location) => {
-    arrayLocationItems.push(<li>{location}</li>);
+    arrayShootSpots.push(<li>{location}</li>);
   });
   
   return (
     <div className="reviewPage page">
       <h2 className="formSectionHeader">Review Appointment Details</h2>
       <div className="appointmentDetailsContainer">
-        <h3 className="reviewPage__contactHeader">Contact Details</h3>
+        <h3 className="reviewPage__contactHeader">Contact Details:</h3>
         <div className="reviewPage__firstNameContainer appointmentDetailSection">
-          <h4 className="reviewPage__firstName">First Name: {formData?.firstName}</h4>
+          <h4 className="reviewPage__firstName">First Name:</h4>
+          <p>{formData?.firstName}</p>
         </div>
         <div className="reviewPage__lastNameContainer appointmentDetailSection">
-          <h4 className="reviewPage__lastName">Last Name: {formData?.lastName}</h4>
+          <h4 className="reviewPage__lastName">Last Name:</h4>
+          <p>{formData?.lastName}</p>
         </div>
         <div className="reviewPage__pronounsContainer appointmentDetailSection">
-          <h4 className="reviewPage__pronouns">Pronouns: {formData?.pronouns}</h4>
+          <h4 className="reviewPage__pronouns">Pronouns:</h4>
+          <p>{formData?.pronouns !== "Other" ? formData?.pronouns : formData?.otherPronouns}</p>
         </div>
-        <h3 className="reviewPage_locationsTitle">Location</h3>
+        <div className="reviewPage__phoneNumberContainer appointmentDetailSection">
+          <h4 className="reviewPage__phone">Phone:</h4>
+          <p>{formData?.phone}</p>
+        </div>
+        <div className="reviewPage__emailContainer appointmentDetailSection">
+          <h4 className="reviewPage__email">Email:</h4>
+          <p>{formData?.email}</p>
+        </div>
+        <div className="reviewPage__phoneNumberContainer appointmentDetailSection">
+          <h4 className="reviewPage__contactMethod">Preferred Contact Method:</h4>
+          <p>{formData?.contactMethod}</p>
+        </div>
+        <h3 className="reviewPage_locationsTitle">Location:</h3>
         <div className="reviewPage__locationsContainer appointmentDetailSection">
-          <h4 className="reviewPage__school">School: <p>{formData?.school}</p></h4>
-          <h4 className="reviewPage__spots">Selected Spots</h4>
-          <ul>{arrayLocationItems}</ul>
+          <h4 className="reviewPage__school">School:</h4>
+          <p>{formData?.school}</p>
         </div>
+        <div className="reviewPage__locationsContainer appointmentDetailSection">
+          <h4 className="reviewPage__spots">Selected Spots:</h4>
+        </div>
+        <ul className="reviewPage__spotsList">{arrayShootSpots}</ul>
+        <h3 className="reviewPage_dateTitle">Date:</h3>
         <div className="reviewPage__dateContainer appointmentDetailSection">
-          <h4 className="reviewPage_dateTitle">Appointment Date: {formData?.date?.toString()}</h4>
+          <h4 className="reviewPage_dateTitle">Shoot Date:</h4>
+          <p>{formData?.date?.toString()}</p>
         </div>
       </div>
     </div>

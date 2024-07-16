@@ -1,6 +1,11 @@
 .bookShootPage {
   display: flex;
   flex-direction: column;
+  margin: 10px 5% 0 5%;
+  background: rgb(255, 252, 247);
+  box-shadow: 6px 8px 3px rgb(153, 153, 153);
+  height: 100%;
+  border: solid .1px rgb(233, 233, 233);
 }
 
 .pageHeader {
@@ -13,13 +18,13 @@
 }
 
 .bookingPageDescription {
-  padding: 0 100px;
+  padding: 0 10%;
   text-align: center;
   font-size: large;
 }
 
 .bookingPageRedirectText {
-  padding: 20px 150px 0;
+  padding: 20px 10% 0;
   text-align: center;
   font-size: small;
 }
