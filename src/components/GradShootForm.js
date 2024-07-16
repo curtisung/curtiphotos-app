@@ -57,11 +57,10 @@ export default function GradShootForm() {
             <div className="formSectionContainer">
               {formPages[page-1]}
             </div>
-            <div className="formSectionContainer">
-              <div className="navigationButtons">
-                <Button className="bookShootPage__Button back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>
-                <Button className="bookShootPage__Button next" variant="contained" onClick={() => changePage(1)}>{rightButtonText}</Button>
-              </div>
+            <div className="separationBorder"></div>
+            <div className="navigationButtons">
+              <Button className="bookShootPage__Button back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>
+              <Button className="bookShootPage__Button next" variant="contained" onClick={() => changePage(1)}>{rightButtonText}</Button>
             </div>
         </div>
       </div>
@@ -101,7 +100,7 @@ function NameEntry({formData, setFormData}) {
   }
   
   return (
-    <div className="NameEntry">
+    <div className="nameEntry page">
       <h2 className="formSectionHeader">Contact Information</h2>
       <div className="formSectionBody">
         <FormControl fullWidth>
@@ -143,7 +142,7 @@ function NameEntry({formData, setFormData}) {
 
 function PackageSelect({ formData, setFormData }) {
   return (
-    <div className="packageSelect formSection">
+    <div className="packageSelect page">
       <h2 className="formSectionHeader">Select a Photo Package</h2>
       <div className="formSectionBody">
         <RadioGroup
@@ -170,7 +169,7 @@ function PackageSelect({ formData, setFormData }) {
 
 function DateSelect({formData, setFormData}) {
   return (
-    <div className="dateSelect">
+    <div className="dateSelect page">
       <h2 className="formSectionHeader">Select an Appointment Date</h2>
       <div className="formSectionBody">
         <div className="calendar">
@@ -199,7 +198,7 @@ function LocationSelect({formData, setFormData}) {
   }
 
   return (
-    <div className="locationSelect">
+    <div className="locationSelect page">
       <h2 className="formSectionHeader">Select Locations</h2>
       <div className="formSectionBody">
         <FormControl className="selectDropDownContainer" fullWidth>
@@ -234,7 +233,7 @@ function ReviewPage({formData, setFormData}) {
   });
   
   return (
-    <div className="reviewPage">
+    <div className="reviewPage page">
       <h2 className="formSectionHeader">Review Appointment Details</h2>
       <div className="appointmentDetailsContainer">
         <h3 className="reviewPage__contactHeader">Contact Details</h3>

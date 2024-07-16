@@ -1,14 +1,27 @@
+.gradShootForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page {
+  width: 100%;
+}
+
 .formSection {
   display: flex;
   /* align-items: center; */
   flex-direction: column;
+  width: 35%;
+  justify-content: center;
+
 }
 
 .formSectionContainer {
   /* min-height: 400px; */
+  min-width: 100%;
   display: flex;
   justify-content: center;
-  width: 981.6px;
 }
 
 .formSectionHeader {
@@ -33,6 +46,15 @@
 .formSectionItem {
   flex: 1;
 }
+
+/*
+Name Entry
+*/
+/* .nameEntry {
+  padding-bottom: 20px;
+  border-bottom: solid 1px rgb(172, 172, 172);
+  width: 100%;
+} */
 
 .pronouns.selectDropDownContainer {
   margin: 20px 0 0 0 !important;
@@ -125,16 +147,24 @@ Review Page
 }
 
 /*
+border
+*/
+.separationBorder {
+  padding: 20px 0;
+  /* border-top: solid 1px rgb(0, 0, 0); */
+}
+
+/*
 Buttons
 */
+
 .navigationButtons {
+  align-self: flex-end;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  margin: 5px;
   gap: 10px;
-  margin-right: 37%;
-  margin-top: 40px;
+  
 }
 
 .bookShootPage__Button {
