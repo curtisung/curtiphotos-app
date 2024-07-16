@@ -109,7 +109,7 @@ Calendar
 */
 
 .css-1rtg91x-MuiDateCalendar-root {
-  max-height: 320px !important;
+  max-height: 280px !important;
 }
 
 /*
@@ -139,7 +139,7 @@ Review Page
 
 .appointmentDetailSection {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .appointmentDetailSection > h4 {
@@ -150,8 +150,9 @@ Review Page
 border
 */
 .separationBorder {
-  padding: 20px 0;
-  /* border-top: solid 1px rgb(0, 0, 0); */
+  width: 100%;
+  margin: 20px 0;
+  border-top:  1px solid rgb(214, 214, 214);
 }
 
 /*

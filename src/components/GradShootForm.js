@@ -57,7 +57,7 @@ export default function GradShootForm() {
             <div className="formSectionContainer">
               {formPages[page-1]}
             </div>
-            <div className="separationBorder"></div>
+            <hr className="separationBorder"/>
             <div className="navigationButtons">
               <Button className="bookShootPage__Button back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>
               <Button className="bookShootPage__Button next" variant="contained" onClick={() => changePage(1)}>{rightButtonText}</Button>
@@ -168,13 +168,18 @@ function PackageSelect({ formData, setFormData }) {
 
 
 function DateSelect({formData, setFormData}) {
+  const changeDate = (newDate) => {setFormData({
+    ...formData,
+    date: newDate,
+  });}
+
   return (
     <div className="dateSelect page">
       <h2 className="formSectionHeader">Select an Appointment Date</h2>
       <div className="formSectionBody">
         <div className="calendar">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar/>
+            <DateCalendar value={formData.date} onChange={changeDate}/>
           </LocalizationProvider>
         </div>
       </div>    
@@ -238,20 +243,22 @@ function ReviewPage({formData, setFormData}) {
       <div className="appointmentDetailsContainer">
         <h3 className="reviewPage__contactHeader">Contact Details</h3>
         <div className="reviewPage__firstNameContainer appointmentDetailSection">
-          <h4 className="reviewPage__firstName">First Name:</h4>
-          <p>{formData.firstName}</p>  
+          <h4 className="reviewPage__firstName">First Name: {formData.firstName}</h4>
         </div>
         <div className="reviewPage__lastNameContainer appointmentDetailSection">
-          <h4 className="reviewPage__lastName">Last Name:</h4>
-          <p>{formData.lastName}</p>  
+          <h4 className="reviewPage__lastName">Last Name: {formData.lastName}</h4>
         </div>
         <div className="reviewPage__pronounsContainer appointmentDetailSection">
-          <h4 className="reviewPage__pronouns">Pronouns:</h4>
-          <p>{formData.pronouns}</p>  
+          <h4 className="reviewPage__pronouns">Pronouns: {formData.pronouns}</h4>
         </div>
+        <h3 className="reviewPage_locationsTitle">Location</h3>
         <div className="reviewPage__locationsContainer appointmentDetailSection">
-          <h4 className="reviewPage_locationsTitle">Locations:</h4>
+          <h4 className="reviewPage__school">School: <p>{formData.school}</p></h4>
+          <h4 className="reviewPage__spots">Selected Spots</h4>
           <ul>{arrayLocationItems}</ul>
+        </div>
+        <div className="reviewPage__dateContainer appointmentDetailSection">
+          <h4 className="reviewPage_dateTitle">Appointment Date: {formData.date.toString()}</h4>
         </div>
       </div>
     </div>
