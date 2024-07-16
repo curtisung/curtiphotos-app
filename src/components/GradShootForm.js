@@ -243,22 +243,22 @@ function ReviewPage({formData, setFormData}) {
       <div className="appointmentDetailsContainer">
         <h3 className="reviewPage__contactHeader">Contact Details</h3>
         <div className="reviewPage__firstNameContainer appointmentDetailSection">
-          <h4 className="reviewPage__firstName">First Name: {formData.firstName}</h4>
+          <h4 className="reviewPage__firstName">First Name: {formData?.firstName}</h4>
         </div>
         <div className="reviewPage__lastNameContainer appointmentDetailSection">
-          <h4 className="reviewPage__lastName">Last Name: {formData.lastName}</h4>
+          <h4 className="reviewPage__lastName">Last Name: {formData?.lastName}</h4>
         </div>
         <div className="reviewPage__pronounsContainer appointmentDetailSection">
-          <h4 className="reviewPage__pronouns">Pronouns: {formData.pronouns}</h4>
+          <h4 className="reviewPage__pronouns">Pronouns: {formData?.pronouns}</h4>
         </div>
         <h3 className="reviewPage_locationsTitle">Location</h3>
         <div className="reviewPage__locationsContainer appointmentDetailSection">
-          <h4 className="reviewPage__school">School: <p>{formData.school}</p></h4>
+          <h4 className="reviewPage__school">School: <p>{formData?.school}</p></h4>
           <h4 className="reviewPage__spots">Selected Spots</h4>
           <ul>{arrayLocationItems}</ul>
         </div>
         <div className="reviewPage__dateContainer appointmentDetailSection">
-          <h4 className="reviewPage_dateTitle">Appointment Date: {formData.date.toString()}</h4>
+          <h4 className="reviewPage_dateTitle">Appointment Date: {formData?.date?.toString()}</h4>
         </div>
       </div>
     </div>
