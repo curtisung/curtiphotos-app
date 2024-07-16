@@ -57,7 +57,7 @@ export default function GradShootForm() {
             <div className="formSectionContainer">
               {formPages[page-1]}
             </div>
-            <div>
+            <div className="formSectionContainer">
               <div className="navigationButtons">
                 <Button className="bookShootPage__Button back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>
                 <Button className="bookShootPage__Button next" variant="contained" onClick={() => changePage(1)}>{rightButtonText}</Button>
