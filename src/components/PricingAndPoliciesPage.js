@@ -3,7 +3,7 @@ import React from "react";
 function PricingAndPoliciesPage() {
   return (
     <div className="pricingAndPoliciesPage">
-      <div className="pageTitleContainer">
+      <div className="pageHeader">
         <h1 className="pageTitle">Pricing and Policies</h1>
       </div>
       <div className="policyText">

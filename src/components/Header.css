@@ -2,10 +2,12 @@
     min-width: 100vw;
     padding: 0 0 10px 0;
     transition: .25s;
+    background-color: #13262F;
+    color: white;
 }
 
 .header:hover {
-    box-shadow: 0 3px 5px rgb(211, 211, 211);
+    box-shadow: 0 3px 5px rgb(255, 255, 255);
 }
 
 .header__linksContainer {

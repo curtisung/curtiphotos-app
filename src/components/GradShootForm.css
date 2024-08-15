@@ -1,0 +1,195 @@
+.gradShootForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #b1e2fc;
+
+
+}
+
+.page {
+  width: 100%;
+}
+
+.formSection {
+  display: flex;
+  /* align-items: center; */
+  flex-direction: column;
+  width: 35%;
+  justify-content: center;
+
+}
+
+.formSectionContainer {
+  /* min-height: 400px; */
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.formSectionHeader {
+  text-align: center;
+}
+
+.formSectionBody {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    /* min-height: 325px; */
+    align-items: center;
+}
+
+.formSectionRow {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+}
+
+.formSectionItem {
+  flex: 1;
+}
+
+/*
+Name Entry
+*/
+/* .nameEntry {
+  padding-bottom: 20px;
+  border-bottom: solid 1px rgb(172, 172, 172);
+  width: 100%;
+} */
+
+.pronouns.selectDropDownContainer {
+  margin: 20px 0 0 0 !important;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.pronouns.selectDropDown {
+  flex: 1;
+}
+
+.otherPronouns {
+  flex: 1;
+}
+
+.contactMethodContainer {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.contactMethodRadioButtonsContainer {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.contactMethodRadioButtonsContainer > FormLabel {
+}
+
+.methodInputContainer {
+  padding-bottom: 3px;
+  display: flex;
+  flex: 2;
+  justify-content: space-around;
+}
+
+.contactRadioButtons {
+  display: flex !important;
+  flex-direction: row !important;
+}
+
+.contactMethodInput {
+  flex-grow: 2;
+  max-width: 50%;
+  padding-bottom: 5px !important;
+}
+
+/*
+Calendar
+*/
+
+.css-1rtg91x-MuiDateCalendar-root {
+  max-height: 280px !important;
+}
+
+/*
+Location
+*/
+
+.locationSelect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.locationCheckboxes {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+/*
+Review Page
+*/
+.appointmentDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.appointmentDetailSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.appointmentDetailSection > h4 {
+  text-align: center;
+  margin: 5px 0;
+}
+
+.appointmentDetailSection > p {
+  margin: 5px 0;
+}
+
+.appointmentDetailsContainer > h3 {
+  align-self: center;
+  margin: 10px 0;
+}
+
+.reviewPage__spotsList{
+  margin-bottom: 0;
+}
+
+/*
+border
+*/
+.separationBorder {
+  width: 60px;
+  margin: 20px 0;
+  border-top:  1px solid #4093e6;
+}
+
+/*
+Buttons
+*/
+
+.navigationButtons {
+  align-self: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.bookShootPage__Button {
+  width: 100px;
+  height: 40px;
+}
