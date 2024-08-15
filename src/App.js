@@ -19,10 +19,7 @@ function App() {
           <Route path="/book-a-shoot" element={<BookShootPage />} />
           <Route path="/works" element={<WorksPage />} />
           <Route path="/works" element={<WorksPage />} />
-          <Route
-            path="/pricing-and-policies"
-            element={<PricingAndPoliciesPage />}
-          />
+          <Route path="/pricing-and-policies" element={<PricingAndPoliciesPage />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -24,7 +24,7 @@ function BookShootPage() {
   return (
     <div className="bookShootPage">
       <div className="pageHeader">
-        <h1 className="pageTitle">Book a Grad Shoot!</h1>
+        <h1 className="pageTitle">Graduation Shoot Booking Form</h1>
         <div className="bookingPageDescription">{bookingPageDescription}</div>
         <div className="bookingPageRedirectText">{bookingPageRedirectText}</div>
       </div>
