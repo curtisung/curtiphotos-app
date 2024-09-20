@@ -1,6 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import "./GradShootForm.css";
+
+// import { doc, setDoc } from "firebase/firestore"; 
+
+import { validEmail } from "../Regex";
+
 import { Checkbox, TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import Radio from "@mui/material/Radio";
@@ -19,36 +24,51 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 export default function GradShootForm() {
     const [page, setPage] = useState(1);
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        pronouns: "",
-        otherPronouns: "",
-        school: "",
+        firstName: null,
+        lastName: null,
+        pronouns: null,
+        otherPronouns: null,
+        school: null,
         contactMethod: "email",
-        email: "",
+        email: null,
         phone: null,
-        photoPackage: "",
+        photoPackage: null,
         locations: new Set(),
     });
+    const [isFormValid, setIsFormValid] = useState(false);
 
     const formPages = [
-      <NameEntry formData={formData} setFormData={setFormData}/>,
+      <NameEntry formData={formData} setFormData={setFormData} setIsFormValid={setIsFormValid}/>,
       <DateSelect formData={formData} setFormData={setFormData}/>,
       <PackageSelect formData={formData} setFormData={setFormData}/>,
       <LocationSelect formData={formData} setFormData={setFormData}/>,
-      <ReviewPage formData={formData} setFormData={setFormData}/>
+      <ReviewPage formData={formData} setFormData={setFormData}/>,
+      <ConfirmationPage/>
     ];
 
     const leftButtonText = "Back";    
-    const rightButtonText = page === formPages.length ? "Submit" : "Next";
+    const rightButtonText = page === formPages.length-1 ? "Submit" : "Next";
+
+    const submitAppointment = () => {
+      // Add a new document in collection "cities"
+      // await setDoc(doc(db, "cities", "LA"), {
+      //   name: "Los Angeles",
+      //   state: "CA",
+      //   country: "USA"
+      // });
+    }
 
     /**
-      * Page cannot be less than 1 and more than 3 for now
+      * Page cannot be less than 1 and more than num of pages
       */
     const changePage = (increment) => {
-      if ((increment === -1 && page === 1) || (increment === 1 && page === formPages.length)){
+      if (increment === -1 && page === 1){
         return;
       }
+      if (increment ===1 && page === formPages.length-1){
+        submitAppointment();
+      }
+
       setPage(page+increment);
     }
 
@@ -60,8 +80,8 @@ export default function GradShootForm() {
             </div>
             <hr className="separationBorder"/>
             <div className="navigationButtons">
-              {(page > 1) && <Button className="bookShootPage__Button back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>}
-              <Button className="bookShootPage__Button next" variant="contained" onClick={() => changePage(1)}>{rightButtonText}</Button>
+              {(page > 1 && page < formPages.length) && <Button className="bookShootPage__Button back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>}
+              {(page < formPages.length) && <Button className="bookShootPage__Button next" variant="contained" disabled={!isFormValid} onClick={() => changePage(1)}>{rightButtonText}</Button>}
             </div>
         </div>
       </div>
@@ -69,7 +89,7 @@ export default function GradShootForm() {
 }
 
 
-function NameEntry({formData, setFormData}) {
+function NameEntry({formData, setFormData, setIsFormValid}) {
   const handleChangeFirstName = (e) => {
     setFormData({...formData, firstName: e.target.value}); 
     console.log(formData);
@@ -93,7 +113,14 @@ function NameEntry({formData, setFormData}) {
   };
 
   const handleChangeEmail = (e) => {
-    setFormData({...formData, email: e.target.value});
+    const newEmail = e.target.value;
+    if (!validEmail.test(newEmail)) {
+      console.log("invalid email");
+      setIsFormValid(false);
+      return;  
+    }
+    setIsFormValid(true);
+    setFormData({...formData, email: newEmail});
   }
 
   const handleChangePhone = (e) => {
@@ -283,6 +310,15 @@ function ReviewPage({formData, setFormData}) {
           <p>{formData?.date?.toString()}</p>
         </div>
       </div>
+    </div>
+  );
+}
+
+
+function ConfirmationPage(){
+  return (
+    <div className="ConfirmationPage">
+      Thank you submitting your appointment. You will receive a confirmation email shortly.
     </div>
   );
 }
