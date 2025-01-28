@@ -2,7 +2,8 @@ import React from "react";
 import { useState } from "react";
 import "./GradShootForm.css";
 
-// import { doc, setDoc } from "firebase/firestore"; 
+import { addDoc, collection, doc, setDoc } from "firebase/firestore"; 
+import { db } from "/project/workspace/src/index.js"
 
 import { validEmail } from "../Regex";
 
@@ -19,6 +20,7 @@ import Select from "@mui/material/Select";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from "@mui/x-date-pickers";
+// import { dblClick } from "@testing-library/user-event/dist/click";
 
 
 export default function GradShootForm() {
@@ -33,6 +35,7 @@ export default function GradShootForm() {
         email: null,
         phone: null,
         photoPackage: null,
+        date: null,
         locations: new Set(),
     });
     const [isFormValid, setIsFormValid] = useState(false);
@@ -50,12 +53,21 @@ export default function GradShootForm() {
     const rightButtonText = page === formPages.length-1 ? "Submit" : "Next";
 
     const submitAppointment = () => {
-      // Add a new document in collection "cities"
-      // await setDoc(doc(db, "cities", "LA"), {
-      //   name: "Los Angeles",
-      //   state: "CA",
-      //   country: "USA"
-      // });
+      const appointmentData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        pronouns: formData.pronouns,
+        otherPronouns: formData.otherPronouns,
+        school: formData.school,
+        contactMethod: formData.contactMethod,
+        email: formData.email,
+        phone: formData.phone,
+        photoPackage: formData.photoPackage,
+        date: new Date(formData.date),
+        locations: Array.from(formData.locations)
+      };
+
+      addDoc(collection(db, "appointments"), appointmentData);
     }
 
     const changePage = (increment) => {

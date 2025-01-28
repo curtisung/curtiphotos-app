@@ -43,7 +43,7 @@ function LandingPage() {
         onClick={onClickBookButton}
       >
         <Button className="landingPage__bookButton" variant="contained">
-          Book Shoot With Me!
+          Book a Shoot With Me!
         </Button>
       </div>
     </div>
