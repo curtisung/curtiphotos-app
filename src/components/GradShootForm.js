@@ -16,9 +16,10 @@ import FormLabel from "@mui/material/FormLabel";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DateCalendar } from "@mui/x-date-pickers";
 
 
 export default function GradShootForm() {
@@ -58,10 +59,8 @@ export default function GradShootForm() {
       // });
     }
 
-    /**
-      * Page cannot be less than 1 and more than num of pages
-      */
     const changePage = (increment) => {
+      // Page cannot be less than 1 and more than num of pages
       if (increment === -1 && page === 1){
         return;
       }
