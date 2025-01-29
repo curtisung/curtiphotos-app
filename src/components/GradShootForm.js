@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./GradShootForm.css";
 
 import { addDoc, collection, doc, setDoc } from "firebase/firestore"; 
-import { db } from "/project/workspace/src/index.js"
+import { db } from "../index.js"
 
 import { validEmail } from "../Regex";
 
@@ -25,6 +25,7 @@ import { DateCalendar } from "@mui/x-date-pickers";
 
 export default function GradShootForm() {
     const [page, setPage] = useState(1);
+    const [isFormValid, setIsFormValid] = useState(false);
     const [formData, setFormData] = useState({
         firstName: null,
         lastName: null,
@@ -38,19 +39,6 @@ export default function GradShootForm() {
         date: null,
         locations: new Set(),
     });
-    const [isFormValid, setIsFormValid] = useState(false);
-
-    const formPages = [
-      <NameEntry formData={formData} setFormData={setFormData} setIsFormValid={setIsFormValid}/>,
-      <DateSelect formData={formData} setFormData={setFormData}/>,
-      <PackageSelect formData={formData} setFormData={setFormData}/>,
-      <LocationSelect formData={formData} setFormData={setFormData}/>,
-      <ReviewPage formData={formData} setFormData={setFormData}/>,
-      <ConfirmationPage/>
-    ];
-
-    const leftButtonText = "Back";    
-    const rightButtonText = page === formPages.length-1 ? "Submit" : "Next";
 
     const submitAppointment = () => {
       const appointmentData = {
@@ -66,9 +54,17 @@ export default function GradShootForm() {
         date: new Date(formData.date),
         locations: Array.from(formData.locations)
       };
-
       addDoc(collection(db, "appointments"), appointmentData);
     }
+
+    const formPages = [
+      <NameEntry formData={formData} setFormData={setFormData} setIsFormValid={setIsFormValid}/>,
+      <DateSelect formData={formData} setFormData={setFormData}/>,
+      <PackageSelect formData={formData} setFormData={setFormData}/>,
+      <LocationSelect formData={formData} setFormData={setFormData}/>,
+      <ReviewPage formData={formData} setFormData={setFormData}/>,
+      <ConfirmationPage/>
+    ];
 
     const changePage = (increment) => {
       // Page cannot be less than 1 and more than num of pages
@@ -78,9 +74,11 @@ export default function GradShootForm() {
       if (increment ===1 && page === formPages.length-1){
         submitAppointment();
       }
-
       setPage(page+increment);
     }
+
+    const leftButtonText = "Back";    
+    const rightButtonText = page === formPages.length-1 ? "Submit" : "Next";
 
     return (
       <div className="gradShootForm">
