@@ -18,22 +18,18 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
 import {getDocs, query, where, collection } from "firebase/firestore";
-import { db } from "../index.js";
+import { getBookedAppointments } from "../AppointmentHelperFunctions.js";
 
 function BookShootPage() {
   const bookingPageDescription = "Fill out and submit the form below to submit your interest in a Gradutation shoot! Once you have, I will reach out to you to give a quote. Let's capture some memories!";
   const bookingPageRedirectText = "\nTo book me for other types of photoshoots or wedding/event coverage, go to the Contact page and send a message for a quote.";
   
-  // const q = query(collection(db, "appointments"));
-  // const appointmentsTest = getDocs(q);
-  // console.log(appointmentsTest);
-  // var apmtList = [];
-  
-  // appointmentsTest.forEach( (apmt) => {
-  //   apmtList.push(<li>{apmt}</li>);
-  //   console.log(apmt);
-  // })
-
+  var bookedApts = getBookedAppointments();
+  console.log(bookedApts.length);
+  // for (let i=0; i < bookedApts.length; ++i) {
+  //   console.log(bookedApts[i].data())
+  // }
+  var aptStr = Array.toString(bookedApts);
   return (
     <div className="bookShootPage">
       <div className="pageHeader">
@@ -41,6 +37,7 @@ function BookShootPage() {
         <div className="bookingPageDescription">{bookingPageDescription}</div>
         <div className="bookingPageRedirectText">{bookingPageRedirectText}</div>
         {/* <ul className="bookingPageAppointmentsTest">{apmtList}</ul> */}
+        <div>Here {aptStr}</div>
       </div>
       <GradShootForm />
     </div>

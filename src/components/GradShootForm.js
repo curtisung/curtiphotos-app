@@ -3,7 +3,8 @@ import { useState } from "react";
 import "./GradShootForm.css";
 
 import { addDoc, collection, doc, setDoc } from "firebase/firestore"; 
-import { db } from "../index.js"
+import { db } from "../firestore.js"
+import { bookAppointment } from "../AppointmentHelperFunctions.js";
 
 import { validEmail } from "../Regex";
 
@@ -20,7 +21,6 @@ import Select from "@mui/material/Select";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from "@mui/x-date-pickers";
-// import { dblClick } from "@testing-library/user-event/dist/click";
 
 
 export default function GradShootForm() {
@@ -40,23 +40,6 @@ export default function GradShootForm() {
         locations: new Set(),
     });
 
-    const submitAppointment = () => {
-      const appointmentData = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        pronouns: formData.pronouns,
-        otherPronouns: formData.otherPronouns,
-        school: formData.school,
-        contactMethod: formData.contactMethod,
-        email: formData.email,
-        phone: formData.phone,
-        photoPackage: formData.photoPackage,
-        date: new Date(formData.date),
-        locations: Array.from(formData.locations)
-      };
-      addDoc(collection(db, "appointments"), appointmentData);
-    }
-
     const formPages = [
       <NameEntry formData={formData} setFormData={setFormData} setIsFormValid={setIsFormValid}/>,
       <DateSelect formData={formData} setFormData={setFormData}/>,
@@ -72,7 +55,7 @@ export default function GradShootForm() {
         return;
       }
       if (increment ===1 && page === formPages.length-1){
-        submitAppointment();
+        bookAppointment(formData);
       }
       setPage(page+increment);
     }
