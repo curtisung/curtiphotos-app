@@ -37,7 +37,7 @@ export default function GradShootForm() {
         phone: null,
         photoPackage: null,
         date: null,
-        locations: new Set(),
+        locations: [],
     });
 
     const formPages = [
@@ -191,7 +191,18 @@ function DateSelect({formData, setFormData}) {
     ...formData,
     date: newDate,
   });}
-
+  /**
+   * I would start by getting all the appointment days so far
+   * and converting it to a format that can be compared to the 
+   * date calendar days
+   * 
+   * find a way to access the days from a calendar and change
+   * its enable, disable, clickable properies. Figure out what 
+   * mui properties it has to make it unselectable
+   * 
+   * disable every date in the calendar, maybe have a legend 
+   * indicating that greyed-out means no apts available
+   */
   return (
     <div className="dateSelect page">
       <h2 className="formSectionHeader">Select a Shoot Date</h2>
@@ -209,15 +220,15 @@ function DateSelect({formData, setFormData}) {
 
 function LocationSelect({formData, setFormData}) {
   const handleLocationChange = (e) => {
-    var locationSet = new Set(formData.locations);
+    var locations = [formData.locations];
     if (e.target.checked) {
-      locationSet.add(e.target.value);
+      locations.add(e.target.value);
     } else {
-      locationSet.delete(e.target.value);
+      locations.delete(e.target.value);
     }
     setFormData({
       ...formData, 
-      locations: locationSet,
+      locations: locations,
     });
   }
 
@@ -236,9 +247,9 @@ function LocationSelect({formData, setFormData}) {
         </FormControl>
         <FormControl className="locationCheckboxes" aria-labelledby="location-select-checkbox-group" defaultValue={null} name="location-select-checkbox-group" onChange={(e) => handleLocationChange(e)}>
           <h3>Campus Spots:</h3>
-          <FormControlLabel control={<Checkbox defaultChecked={formData.locations.has("Location 1")}/>} value="Location 1" label="Location 1"/>
-          <FormControlLabel control={<Checkbox defaultChecked={formData.locations.has("Location 2")}/>} value="Location 2" label="Location 2"/>
-          <FormControlLabel control={<Checkbox defaultChecked={formData.locations.has("Location 3")}/>} value="Location 3" label="Location 3"/>
+          <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 1")}/>} value="Location 1" label="Location 1"/>
+          <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 2")}/>} value="Location 2" label="Location 2"/>
+          <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 3")}/>} value="Location 3" label="Location 3"/>
         </FormControl>
       </div>
     </div>
