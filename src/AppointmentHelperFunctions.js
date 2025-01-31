@@ -1,14 +1,24 @@
 import { query, addDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "./firestore.js";
 
+/**
+ * Queries firestore db for all Appointments and returns the 
+ * Appointment data in an array of Object with fields as properties 
+ * @returns [ {id : ..., field1 : ..., field2...} ] - array of Objects
+ * each containing an appointment's fields and firestore ID as properties 
+ */
 async function getBookedAppointments() {
     const q = query(collection(db, "appointments"));
     var querySnapshot = await getDocs(q)
-    // take docs from the query and bundle each doc's auto-generated firestore ID with field values
+    // bundle each doc's firestore ID with field values
     var bookedApts = querySnapshot.docs.map((apt) => {return { ...apt.data(), id: apt.id }});
     return bookedApts;
 }
 
+/**
+ * Posts an Appointment to firestore db
+ * @param {Object} formData - Shoot form data with appointment properties
+ */
 async function bookAppointment (formData) {
     const appointmentData = {
       firstName: formData.firstName,
