@@ -1,19 +1,34 @@
 import { query, addDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "./firestore.js";
 
-function getBookedAppointments() {
+async function getBookedAppointments() {
     const q = query(collection(db, "appointments"));
-    var bookedApts = []
-    getDocs(q).then((appointments) => {
-      appointments.forEach((apt) => {    
-        bookedApts.push(apt.data());
-      });
+    var querySnapshot = await getDocs(q)
+    var bookedApts = querySnapshot.docs.map((apt) => {
+      return apt.data();
     });
-    
+    //   for (field in apt.data().keys()) {
+
+    //   }
+    //   return {
+    //     firstName: apt.firstName,
+    //     lastName: apt.lastName,
+    //     pronouns: apt.pronouns,
+    //     otherPronouns: apt.otherPronouns,
+    //     school: apt.school,
+    //     contactMethod: apt.contactMethod,
+    //     email: apt.email,
+    //     phone: apt.phone,
+    //     photoPackage: apt.photoPackage,
+    //     date: apt.date,
+    //     locations: apt.locations,
+    //   }
+    // });
     return bookedApts;
 }
 
-function bookAppointment (formData) {
+
+async function bookAppointment (formData) {
     const appointmentData = {
       firstName: formData.firstName,
       lastName: formData.lastName,

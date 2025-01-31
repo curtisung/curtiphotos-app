@@ -3,7 +3,7 @@ import "./BookShootPage.css";
 import GradShootForm from "./GradShootForm";
 // import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -21,15 +21,24 @@ import {getDocs, query, where, collection } from "firebase/firestore";
 import { getBookedAppointments } from "../AppointmentHelperFunctions.js";
 
 function BookShootPage() {
+  const [bookedAppointments, setBookedAppointments] = useState([]);
   const bookingPageDescription = "Fill out and submit the form below to submit your interest in a Gradutation shoot! Once you have, I will reach out to you to give a quote. Let's capture some memories!";
   const bookingPageRedirectText = "\nTo book me for other types of photoshoots or wedding/event coverage, go to the Contact page and send a message for a quote.";
   
-  var bookedApts = getBookedAppointments();
-  console.log(bookedApts.length);
+  // useEffect(() => {
+  //     getBookedAppointments().then((bookedAptsArr) => {
+  //       var markupApts = [];
+  //       bookedAptsArr.forEach((apt) => {
+  //         markupApts.push(<li key={apt.id}>{apt.firstName}</li>);
+  //       })
+  //       setBookedAppointments(markupApts);
+  //     })
+  // }, []);
+  // console.log("debug2", bookedApts.length);
   // for (let i=0; i < bookedApts.length; ++i) {
   //   console.log(bookedApts[i].data())
   // }
-  var aptStr = Array.toString(bookedApts);
+  // var aptStr = Array.toString(bookedApts);
   return (
     <div className="bookShootPage">
       <div className="pageHeader">
@@ -37,7 +46,7 @@ function BookShootPage() {
         <div className="bookingPageDescription">{bookingPageDescription}</div>
         <div className="bookingPageRedirectText">{bookingPageRedirectText}</div>
         {/* <ul className="bookingPageAppointmentsTest">{apmtList}</ul> */}
-        <div>Here {aptStr}</div>
+        <div>Here {bookedAppointments}</div>
       </div>
       <GradShootForm />
     </div>
