@@ -133,7 +133,7 @@ function NameEntry({formData, setFormData, setIsFormValid}) {
               <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Pronouns" defaultValue={formData.pronouns} onChange={(e) => handleChangePronouns(e)}>
                 <MenuItem value={"He/Him"}>He/Him</MenuItem>
                 <MenuItem value={"She/Her"}>She/Her</MenuItem>
-                <MenuItem value={"They/THem"}>They/Them</MenuItem>
+                <MenuItem value={"They/Them"}>They/Them</MenuItem>
                 <MenuItem value={"Other"}>Other</MenuItem>
               </Select>
             </FormControl>
