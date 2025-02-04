@@ -1,13 +1,10 @@
 import React from "react";
-import { useState } from "react";
-import "./GradShootForm.css";
+import { useState, useEffect } from "react";
 
-import { addDoc, collection, doc, setDoc } from "firebase/firestore"; 
-import { db } from "../firestore.js"
-import { bookAppointment } from "../AppointmentHelperFunctions.js";
+import "./GradShootForm.css";
+import { bookAppointment, getBookedAppointments } from "../AppointmentHelperFunctions.js";
 
 import { validEmail } from "../Regex";
-
 import { Checkbox, TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import Radio from "@mui/material/Radio";
@@ -20,11 +17,14 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateCalendar } from "@mui/x-date-pickers";
+import { DatePicker } from "@mui/x-date-pickers";
 
 
 export default function GradShootForm() {
     const [page, setPage] = useState(1);
+    // const [bookedAppointments, setBookedAppointments] = useState([]);
+    const [bookedDates, setBookedDates] = useState([]);
+
     const [isFormValid, setIsFormValid] = useState(false);
     const [formData, setFormData] = useState({
         firstName: null,
@@ -42,12 +42,21 @@ export default function GradShootForm() {
 
     const formPages = [
       <NameEntry formData={formData} setFormData={setFormData} setIsFormValid={setIsFormValid}/>,
-      <DateSelect formData={formData} setFormData={setFormData}/>,
       <PackageSelect formData={formData} setFormData={setFormData}/>,
+      <DateSelect formData={formData} setFormData={setFormData} bookedDates={bookedDates}/>,
       <LocationSelect formData={formData} setFormData={setFormData}/>,
       <ReviewPage formData={formData} setFormData={setFormData}/>,
-      <ConfirmationPage/>
+      <ConfirmationPage formData={formData}/>
     ];
+
+    useEffect(() => {
+        getBookedAppointments().then((bookedAptsArr) => {
+          var bookedDates = bookedAptsArr.map((apt) => {
+            return apt.date.toDate()
+          })
+          setBookedDates(bookedDates);
+        })
+    }, []);
 
     const changePage = (increment) => {
       // Page cannot be less than 1 and more than num of pages
@@ -186,11 +195,28 @@ function PackageSelect({ formData, setFormData }) {
 }
 
 
-function DateSelect({formData, setFormData}) {
+function DateSelect({formData, setFormData, bookedDates}) {
   const changeDate = (newDate) => {setFormData({
     ...formData,
     date: newDate,
   });}
+
+  console.log(bookedDates);
+  
+  const shouldDisableDate = (date) => {
+    var isBooked = bookedDates.find((bookedDate) => {
+      return date.year() === bookedDate.getFullYear() &&
+            date.month() === bookedDate.getMonth() &&
+            date.date() === bookedDate.getDate();
+    })
+    return isBooked !== undefined;
+  };
+
+  // TODO: remove temp markup
+  var datesMarkup = bookedDates.map((apt) => {
+    return <li>{apt.toString()}</li>
+  })  
+
   /**
    * I would start by getting all the appointment days so far
    * and converting it to a format that can be compared to the 
@@ -209,7 +235,7 @@ function DateSelect({formData, setFormData}) {
       <div className="formSectionBody">
         <div className="calendar">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar value={formData.date} onChange={changeDate}/>
+            <DatePicker value={formData.date} onChange={changeDate} shouldDisableDate={shouldDisableDate}/>
           </LocalizationProvider>
         </div>
       </div>    
@@ -220,11 +246,11 @@ function DateSelect({formData, setFormData}) {
 
 function LocationSelect({formData, setFormData}) {
   const handleLocationChange = (e) => {
-    var locations = [formData.locations];
+    var locations = [...formData.locations];
     if (e.target.checked) {
-      locations.add(e.target.value);
+      locations.push(e.target.value);
     } else {
-      locations.delete(e.target.value);
+      locations = locations.filter((location) => { return location === e.target.value });
     }
     setFormData({
       ...formData, 
@@ -317,10 +343,12 @@ function ReviewPage({formData, setFormData}) {
 }
 
 
-function ConfirmationPage(){
+function ConfirmationPage({ formData, setFormData }){
+  // console.log(typeof formData.date);
+  // console.log(formData.date);
   return (
     <div className="ConfirmationPage">
-      Thank you submitting your appointment. You will receive a confirmation email shortly.
+      Your appointment has been booked. You will receive a confirmation email shortly.
     </div>
   );
 }
