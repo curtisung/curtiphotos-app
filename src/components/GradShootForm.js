@@ -196,29 +196,20 @@ function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
       <div className="formSectionBody">
         <FormControl fullWidth>
           <div className="formSectionRow">
-            <TextField className="formSectionItem" id="clientFirstName" label="First Name" variant="standard" required={true} onChange={(e) => handleChangeFirstName(e)} defaultValue={formData.firstName}/>
-            <TextField className="formSectionItem" id="clientLastName" label="Last Name" variant="standard" required={true} onChange={(e) => handleChangeLastName(e)} defaultValue={formData.lastName}/>
+            <TextField className="formSectionItem" id="clientFirstName" label="First Name" variant="standard" required={true} onChange={handleChangeFirstName} defaultValue={formData.firstName}/>
+            <TextField className="formSectionItem" id="clientLastName" label="Last Name" variant="standard" required={true} onChange={handleChangeLastName} defaultValue={formData.lastName}/>
           </div>
            <div className="pronouns selectDropDownContainer">
-            {/* <FormControl className="pronouns selectDropDown" fullWidth>
-              <InputLabel id="demo-simple-select-label" required={true}>Pronouns</InputLabel>
-              <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Pronouns" defaultValue={formData.pronouns} onChange={(e) => handleChangePronouns(e)}>
-                <MenuItem value={"He/Him"}>He/Him</MenuItem>
-                <MenuItem value={"She/Her"}>She/Her</MenuItem>
-                <MenuItem value={"They/Them"}>They/Them</MenuItem>
-                <MenuItem value={"Other"}>Other</MenuItem>
-              </Select>
-            </FormControl> */}
-            <TextField className="formSectionItem" id="clientPronouns" label="Pronouns" variant="standard" required={true} defaultValue={formData.pronouns} onChange={(e) => handleChangePronouns(e)}/>
+            <TextField className="formSectionItem" id="clientPronouns" label="Pronouns" variant="standard" required={true} defaultValue={formData.pronouns} onChange={handleChangePronouns}/>
           </div>
           <FormControl fullWidth>
             <div className="contactMethodContainer">
-              <TextField className="contactMethodInput" id="contactInput" label="Email" variant="standard" required={true} defaultValue={formData.email} onChange={(e) => handleChangeEmail(e)}/>
-              <TextField className="contactMethodInput" id="contactInput" label="Phone" variant="standard" required={true} defaultValue={formData.phone} onChange={(e) => handleChangePhone(e)}/>
+              <TextField className="contactMethodInput" id="contactInput" label="Email" variant="standard" required={true} defaultValue={formData.email} onChange={handleChangeEmail}/>
+              <TextField className="contactMethodInput" id="contactInput" label="Phone" variant="standard" required={true} defaultValue={formData.phone} onChange={handleChangePhone}/>
             </div>
             <div className="contactMethodRadioButtonsContainer">
               <FormLabel id="demo-radio-buttons-group-label" required={true}>Preferred Contact Method</FormLabel>
-              <RadioGroup className="contactRadioButtons" aria-labelledby="demo-radio-buttons-group-label" value={formData.contactMethod} name="controlled-radio-buttons-group" onChange={(e) => handleChangeContactMethod(e)}>
+              <RadioGroup className="contactRadioButtons" aria-labelledby="demo-radio-buttons-group-label" value={formData.contactMethod} name="controlled-radio-buttons-group" onChange={handleChangeContactMethod}>
                 <FormControlLabel value="email" control={<Radio />} label="Email"/>
                 <FormControlLabel value="phone" control={<Radio />} label="Phone"/>
               </RadioGroup>
@@ -231,24 +222,31 @@ function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
 }
 
 
-function PackageSelect({ formData, setFormData }) {
+function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
+  
+  const isPackageSelected = (photoPackage) => {
+    return photoPackage !== "" && photoPackage !== null && photoPackage !== undefined;
+  }
+
+  const checkIsPageValid = () => {
+    if (!isPackageSelected(formData.photoPackage)) {
+      setIsCurrentPageValid(false);
+      return;
+    }
+    setIsCurrentPageValid(true);
+  }
+  
+  const handleChangePhotoPackage = (e) => {
+    setFormData({...formData, photoPackage: e.target.value});
+    checkIsPageValid();
+  }
+
+  checkIsPageValid();
   return (
     <div className="packageSelect page">
       <h2 className="formSectionHeader">Select a Photo Package</h2>
       <div className="formSectionBody">
-        <RadioGroup
-          className="photoPackageRadioButtons"
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue={formData.photoPackage}
-          name="radio-buttons-group"
-          onChange={(e) => {
-            setFormData({
-              ...formData,
-              photoPackage: e.target.value,
-            });
-            console.log(formData);
-          }}
-        >
+        <RadioGroup className="photoPackageRadioButtons" aria-labelledby="demo-radio-buttons-group-label" defaultValue={formData.photoPackage} name="radio-buttons-group" onChange={handleChangePhotoPackage}>
           <FormControlLabel value="Package 1" control={<Radio />} label="Package 1"/>
           <FormControlLabel value="Package 2" control={<Radio />} label="Package 2"/>
         </RadioGroup>
