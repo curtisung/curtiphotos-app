@@ -34,7 +34,7 @@ export default function GradShootForm() {
         email: null,
         phone: null,
         photoPackage: null,
-        date: new Date(),
+        date: null,
         locations: [],
     });
 
@@ -256,11 +256,24 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
 }
 
 
-function DateSelect({formData, setFormData, bookedDates}) {
-  const changeDate = (newDate) => {setFormData({
-    ...formData,
-    date: new Date(newDate),
-  });}
+function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates}) {
+  const isDateValid = (date) => {
+    return date !== null;
+  }
+  
+  const checkIsFormValid = () => {
+    if (!isDateValid(formData.date)) {
+      setIsCurrentPageValid(false);
+      return;
+    }
+    setIsCurrentPageValid(true);
+  }
+  
+  const handleChangeDate = (newDate) => {
+    setFormData({...formData, date: new Date(newDate)});
+    checkIsFormValid();
+    console.log(formData);
+  }
   
   const shouldDisableDate = (date) => {
     var isBooked = bookedDates.find((bookedDate) => {
@@ -271,25 +284,15 @@ function DateSelect({formData, setFormData, bookedDates}) {
     return isBooked !== undefined;
   };
 
-  /**
-   * I would start by getting all the appointment days so far
-   * and converting it to a format that can be compared to the 
-   * date calendar days
-   * 
-   * find a way to access the days from a calendar and change
-   * its enable, disable, clickable properies. Figure out what 
-   * mui properties it has to make it unselectable
-   * 
-   * disable every date in the calendar, maybe have a legend 
-   * indicating that greyed-out means no apts available
-   */
+  checkIsFormValid();
+
   return (
     <div className="dateSelect page">
       <h2 className="formSectionHeader">Select a Shoot Date</h2>
       <div className="formSectionBody">
         <div className="calendar">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker valueAsDate={formData.date} onChange={changeDate} shouldDisableDate={shouldDisableDate}/>
+            <DatePicker value={formData.date === null ? new Date() : formData?.date} onChange={handleChangeDate} shouldDisableDate={shouldDisableDate}/>
           </LocalizationProvider>
         </div>
       </div>    
