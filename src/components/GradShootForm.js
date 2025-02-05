@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import "./GradShootForm.css";
-import { bookAppointment, getBookedAppointments } from "../AppointmentHelperFunctions.js";
+import { bookAppointment, getBookedAppointments, deleteAllBookedAppointments } from "../AppointmentHelperFunctions.js";
 
 import { validEmail } from "../Regex";
 import { Checkbox, TextField } from "@mui/material";
@@ -22,10 +22,8 @@ import { DatePicker } from "@mui/x-date-pickers";
 
 export default function GradShootForm() {
     const [page, setPage] = useState(1);
-    // const [bookedAppointments, setBookedAppointments] = useState([]);
     const [bookedDates, setBookedDates] = useState([]);
-
-    const [isFormValid, setIsFormValid] = useState(false);
+    const [isCurrentPageValid, setIsCurrentPageValid] = useState(false);
     const [formData, setFormData] = useState({
         firstName: null,
         lastName: null,
@@ -36,16 +34,16 @@ export default function GradShootForm() {
         email: null,
         phone: null,
         photoPackage: null,
-        date: null,
+        date: new Date(),
         locations: [],
     });
 
     const formPages = [
-      <NameEntry formData={formData} setFormData={setFormData} setIsFormValid={setIsFormValid}/>,
-      <PackageSelect formData={formData} setFormData={setFormData}/>,
-      <DateSelect formData={formData} setFormData={setFormData} bookedDates={bookedDates}/>,
-      <LocationSelect formData={formData} setFormData={setFormData}/>,
-      <ReviewPage formData={formData} setFormData={setFormData}/>,
+      <ContactEntry formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
+      <PackageSelect formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
+      <DateSelect formData={formData} setFormData={setFormData} bookedDates={bookedDates} setIsCurrentPageValid={setIsCurrentPageValid}/>,
+      <LocationSelect formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
+      <ReviewPage formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
       <ConfirmationPage formData={formData}/>
     ];
 
@@ -63,8 +61,16 @@ export default function GradShootForm() {
       if (increment === -1 && page === 1){
         return;
       }
-      if (increment ===1 && page === formPages.length-1){
-        bookAppointment(formData);
+      if (increment === 1) {
+        // do nothing if current page's form isn't valid
+        if (!isCurrentPageValid) {
+          return;
+        }
+        // check if we're reviewing to book
+        // TODO: Move booking functionality to the Review page
+        if (page === formPages.length-1){
+            bookAppointment(formData);
+        }
       }
       setPage(page+increment);
     }
@@ -81,7 +87,7 @@ export default function GradShootForm() {
             <hr className="separationBorder"/>
             <div className="navigationButtons">
               {(page > 1 && page < formPages.length) && <Button className="bookShootPage__Button back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>}
-              {(page < formPages.length) && <Button className="bookShootPage__Button next" variant="contained" disabled={!isFormValid} onClick={() => changePage(1)}>{rightButtonText}</Button>}
+              {(page < formPages.length) && <Button className="bookShootPage__Button next" variant="contained" disabled={!isCurrentPageValid} onClick={() => changePage(1)}>{rightButtonText}</Button>}
             </div>
         </div>
       </div>
@@ -89,54 +95,137 @@ export default function GradShootForm() {
 }
 
 
-function NameEntry({formData, setFormData, setIsFormValid}) {
+function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
+  // const [isFirstNameValid, setIsFirstNameValid] = useState(false);
+  // const [isLastNameValid, setIsLastNameValid] = useState(false);
+  // const [isPronounsValid, setIsPronounsValid] = useState(false);
+  // const [isContactMethodValid, setIsContactMethodValid] = useState(false);
+  // const [isEmailValid, setIsEmailValid] = useState(false);
+  // const [isPhoneValid, setIsPhoneValid] = useState(false);
+
+  const isFirstNameValid = () => {
+    const firstName = formData.firstName;
+    return firstName !== "" && firstName !== null && firstName !== undefined;
+  }
+
+  const isLastNameValid = () => {
+    const lastName = formData.lastName;
+    return lastName !== "" && lastName !== null && lastName !== undefined;
+  }
+
+  const isPronounsValid = () => {
+    const pronouns = formData.pronouns;
+    return pronouns !== "" && pronouns !== null && pronouns !== undefined;
+  }
+
+  const isContactMethodValid = () => {
+    const contactMethod = formData.contactMethod;
+    return contactMethod === "email" || contactMethod === "phone";
+  }
+
+  const checkIsPageValid = () => {
+    if (!isFirstNameValid()){
+      setIsCurrentPageValid(false);
+      // add alert like "please fill out the required fields"
+      return;
+    }
+    if (!isLastNameValid()){
+      setIsCurrentPageValid(false);
+      return;
+    }
+    if (!isPronounsValid()){
+      setIsCurrentPageValid(false);
+      return;
+    }
+    if (!isContactMethodValid()){
+      setIsCurrentPageValid(false);
+      return;
+    }
+    // if (!isEmailValid){
+    //   setIsCurrentPageValid(false);
+    //   return;
+    // }
+    // if (!isPhoneValid){
+    //   setIsCurrentPageValid(false);
+    //   return;
+    // }
+    setIsCurrentPageValid(true);
+  };
+
+  
+
   const handleChangeFirstName = (e) => {
     setFormData({...formData, firstName: e.target.value}); 
+    checkIsPageValid(); 
     console.log(formData);
   };
 
   const handleChangeLastName = (e) => {
     setFormData({...formData, lastName: e.target.value}); 
-    console.log(formData);
+    checkIsPageValid(); 
+    console.log(formData);  
   };
 
-  const handleChangePronouns = (e) => {
-    setFormData({...formData, pronouns: e.target.value, otherPronouns: ""}); 
-  };
+  // const handleChangePronouns = (e) => {
+  //   if (e.target.value === ""){
+  //     // set alarm, set required field modifier
+  //     setIsPronounsValid(false)
+  //     return;
+  //   }
+  //   setIsPronounsValid(true)
+  //   checkIsPageValid(); 
+  //   setFormData({...formData, pronouns: e.target.value}); 
+  //   console.log(formData);  
+  // };
 
-  const handleChangeOtherPronouns = (e) => {
-    setFormData({...formData, otherPronouns: e.target.value}); 
-  };
+  // const handleChangeContactMethod = (e) => {
+  //   if (e.target.value === ""){
+  //     // set alarm, set required field modifier
+  //     setIsContactMethodValid(false)
+  //     return;
+  //   }
+  //   setIsContactMethodValid(true)
+  //   checkIsPageValid(); 
+  //   setFormData({...formData, contactMethod: e.target.value});
+  //   console.log(formData);
+  // };
+  
+  // const handleChangeEmail = (e) => {
+  //   const newEmail = e.target.value;
+  //   if (newEmail === "" || !validEmail.test(newEmail)){
+  //     // set alarm, set required field modifier
+  //     setIsEmailValid(false)
+  //     return;
+  //   }
+  //   setIsEmailValid(true)
+  //   checkIsPageValid(); 
+  //   console.log(formData);
+  // }
 
-  const handleChangeContactMethod = (e) => {
-    setFormData({...formData, contactMethod: e.target.value});
-  };
+  // const handleChangePhone = (e) => {
+  //   if (e.target.value === ""){
+  //     // set alarm, set required field modifier
+  //     setIsPhoneValid(false)
+  //     return;
+  //   }
+  //   setIsPhoneValid(true)
+  //   checkIsPageValid(); 
+  //   setFormData({...formData, phone: e.target.value});    
+  //   console.log(formData);
+  // }
 
-  const handleChangeEmail = (e) => {
-    const newEmail = e.target.value;
-    if (!validEmail.test(newEmail)) {
-      console.log("invalid email");
-      setIsFormValid(false);
-      return;  
-    }
-    setIsFormValid(true);
-    setFormData({...formData, email: newEmail});
-  }
-
-  const handleChangePhone = (e) => {
-    setFormData({...formData, phone: e.target.value});
-  }
+  checkIsPageValid();
   
   return (
-    <div className="nameEntry page">
+    <div className="contactEntry page">
       <h2 className="formSectionHeader">Contact Information</h2>
       <div className="formSectionBody">
         <FormControl fullWidth>
           <div className="formSectionRow">
-            <TextField className="formSectionItem" id="clientFirstName" label="First Name" variant="standard" required={true} onBlur={(e) => handleChangeFirstName(e)} defaultValue={formData.firstName}/>
-            <TextField className="formSectionItem" id="clientLastName" label="Last Name" variant="standard" required={true} onBlur={(e) => handleChangeLastName(e)} defaultValue={formData.lastName}/>
+            <TextField className="formSectionItem" id="clientFirstName" label="First Name" variant="standard" required={true} onChange={(e) => handleChangeFirstName(e)} defaultValue={formData.firstName}/>
+            <TextField className="formSectionItem" id="clientLastName" label="Last Name" variant="standard" required={true} onChange={(e) => handleChangeLastName(e)} defaultValue={formData.lastName}/>
           </div>
-          <div className="pronouns selectDropDownContainer">
+          {/* <div className="pronouns selectDropDownContainer">
             <FormControl className="pronouns selectDropDown" fullWidth>
               <InputLabel id="demo-simple-select-label" required={true}>Pronouns</InputLabel>
               <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Pronouns" defaultValue={formData.pronouns} onChange={(e) => handleChangePronouns(e)}>
@@ -146,12 +235,12 @@ function NameEntry({formData, setFormData, setIsFormValid}) {
                 <MenuItem value={"Other"}>Other</MenuItem>
               </Select>
             </FormControl>
-            {(formData.pronouns === "Other") && <TextField className="otherPronouns" id="otherPronouns" label="Enter your pronouns" variant="standard" required={true} defaultValue={formData.otherPronouns} onBlur={(e) => handleChangeOtherPronouns(e)}/>}
+            <TextField className="formSectionItem" id="clientPronouns" label="Pronouns" variant="standard" required={true} defaultValue={formData.otherPronouns} onChange={(e) => handleChangePronouns(e)}/>
           </div>
           <FormControl fullWidth>
             <div className="contactMethodContainer">
-              <TextField className="contactMethodInput" id="contactInput" label="Email" variant="standard" required={true} defaultValue={formData.email} onBlur={(e) => handleChangeEmail(e)}/>
-              <TextField className="contactMethodInput" id="contactInput" label="Phone" variant="standard" required={true} defaultValue={formData.phone} onBlur={(e) => handleChangePhone(e)}/>
+              <TextField className="contactMethodInput" id="contactInput" label="Email" variant="standard" required={true} defaultValue={formData.email} onChange={(e) => handleChangeEmail(e)}/>
+              <TextField className="contactMethodInput" id="contactInput" label="Phone" variant="standard" required={true} defaultValue={formData.phone} onChange={(e) => handleChangePhone(e)}/>
             </div>
             <div className="contactMethodRadioButtonsContainer">
               <FormLabel id="demo-radio-buttons-group-label" required={true}>Preferred Contact Method</FormLabel>
@@ -160,7 +249,7 @@ function NameEntry({formData, setFormData, setIsFormValid}) {
                 <FormControlLabel value="phone" control={<Radio />} label="Phone"/>
               </RadioGroup>
             </div>
-          </FormControl>
+          </FormControl> */}
         </FormControl>
       </div>
     </div>
@@ -198,10 +287,8 @@ function PackageSelect({ formData, setFormData }) {
 function DateSelect({formData, setFormData, bookedDates}) {
   const changeDate = (newDate) => {setFormData({
     ...formData,
-    date: newDate,
+    date: new Date(newDate),
   });}
-
-  console.log(bookedDates);
   
   const shouldDisableDate = (date) => {
     var isBooked = bookedDates.find((bookedDate) => {
@@ -211,11 +298,6 @@ function DateSelect({formData, setFormData, bookedDates}) {
     })
     return isBooked !== undefined;
   };
-
-  // TODO: remove temp markup
-  var datesMarkup = bookedDates.map((apt) => {
-    return <li>{apt.toString()}</li>
-  })  
 
   /**
    * I would start by getting all the appointment days so far
@@ -235,7 +317,7 @@ function DateSelect({formData, setFormData, bookedDates}) {
       <div className="formSectionBody">
         <div className="calendar">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker value={formData.date} onChange={changeDate} shouldDisableDate={shouldDisableDate}/>
+            <DatePicker valueAsDate={formData.date} onChange={changeDate} shouldDisableDate={shouldDisableDate}/>
           </LocalizationProvider>
         </div>
       </div>    
@@ -343,12 +425,10 @@ function ReviewPage({formData, setFormData}) {
 }
 
 
-function ConfirmationPage({ formData, setFormData }){
-  // console.log(typeof formData.date);
-  // console.log(formData.date);
+function ConfirmationPage({ formData }){
   return (
     <div className="ConfirmationPage">
-      Your appointment has been booked. You will receive a confirmation email shortly.
+      Your appointment for {formData?.date?.toDateString()} has been booked. You will receive a confirmation email shortly.
     </div>
   );
 }

@@ -1,7 +1,8 @@
-import { query, addDoc, getDocs, collection } from "firebase/firestore";
+import { query, addDoc, getDocs, collection, writeBatch } from "firebase/firestore";
 import { db } from "./firestore.js";
 
-/**
+/** The properties of the AppointmentDocData object are as follows 
+ *  (this object is used in formData):
  * @typedef {Object} AppointmentDocData
  * @property {string} id - the appointment's document id in Firestore
  * @property {string} firstName
@@ -13,9 +14,10 @@ import { db } from "./firestore.js";
  * @property {string} email
  * @property {string} phone
  * @property {string} photoPackage
- * @property {string} date - date of the appointment
+ * @property {Date} date - date of the appointment
  * @property {Array<string>} locations - array of shoot locations
  */
+
 
 /**
  * Queries firestore db for all Appointments and returns the 
@@ -33,6 +35,26 @@ async function getBookedAppointments() {
 }
 
 /**
+ * Deletes all documents from the Appointments collection
+ */
+async function deleteAllBookedAppointments() {
+  const collectionRef = db.collection("appointments");
+  try {
+    // Get all documents in the collection
+    const snapshot = await collectionRef.get();
+    
+    // Loop through each document and delete it
+    snapshot.forEach(async (doc) => {
+      doc.ref.delete();
+    });
+    
+  } catch (error) {
+    console.error('Error deleting documents: ', error);
+  }
+
+}
+
+/**
  * Posts an Appointment to firestore db
  * @param {Object} formData - Shoot form data with appointment properties
  */
@@ -47,10 +69,10 @@ async function bookAppointment (formData) {
       email: formData.email,
       phone: formData.phone,
       photoPackage: formData.photoPackage,
-      date: new Date(formData.date),
+      date: formData.date,
       locations: formData.locations
     };
     addDoc(collection(db, "appointments"), appointmentData);
   }
 
-export { getBookedAppointments, bookAppointment }
+export { getBookedAppointments, bookAppointment, deleteAllBookedAppointments }
