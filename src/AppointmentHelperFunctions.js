@@ -1,4 +1,4 @@
-import { query, addDoc, getDocs, collection, writeBatch } from "firebase/firestore";
+import { query, addDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "./firestore.js";
 
 /** The properties of the AppointmentDocData object are as follows 

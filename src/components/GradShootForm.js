@@ -96,62 +96,60 @@ export default function GradShootForm() {
 
 
 function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
-  // const [isFirstNameValid, setIsFirstNameValid] = useState(false);
-  // const [isLastNameValid, setIsLastNameValid] = useState(false);
-  // const [isPronounsValid, setIsPronounsValid] = useState(false);
-  // const [isContactMethodValid, setIsContactMethodValid] = useState(false);
-  // const [isEmailValid, setIsEmailValid] = useState(false);
-  // const [isPhoneValid, setIsPhoneValid] = useState(false);
-
-  const isFirstNameValid = () => {
-    const firstName = formData.firstName;
+  const isFirstNameValid = (firstName) => {
     return firstName !== "" && firstName !== null && firstName !== undefined;
   }
 
-  const isLastNameValid = () => {
-    const lastName = formData.lastName;
+  const isLastNameValid = (lastName) => {
     return lastName !== "" && lastName !== null && lastName !== undefined;
   }
 
-  const isPronounsValid = () => {
-    const pronouns = formData.pronouns;
+  const isPronounsValid = (pronouns) => {
     return pronouns !== "" && pronouns !== null && pronouns !== undefined;
   }
 
-  const isContactMethodValid = () => {
-    const contactMethod = formData.contactMethod;
+  const isEmailValid = (email) => {
+    return email !== "" && validEmail.test(email);
+  }
+
+  const isPhoneValid = (phone) => {
+    return phone !== "" && phone !== null && phone !== undefined;
+  }
+
+  const isContactMethodValid = (contactMethod) => {;
     return contactMethod === "email" || contactMethod === "phone";
   }
 
+
   const checkIsPageValid = () => {
-    if (!isFirstNameValid()){
+    if (!isFirstNameValid(formData.firstName)){
       setIsCurrentPageValid(false);
       // add alert like "please fill out the required fields"
       return;
     }
-    if (!isLastNameValid()){
+    if (!isLastNameValid(formData.lastName)){
       setIsCurrentPageValid(false);
       return;
     }
-    if (!isPronounsValid()){
+    if (!isPronounsValid(formData.pronouns)){
       setIsCurrentPageValid(false);
       return;
     }
-    if (!isContactMethodValid()){
+    if (!isEmailValid(formData.email)){
       setIsCurrentPageValid(false);
       return;
     }
-    // if (!isEmailValid){
-    //   setIsCurrentPageValid(false);
-    //   return;
-    // }
-    // if (!isPhoneValid){
-    //   setIsCurrentPageValid(false);
-    //   return;
-    // }
+    if (!isPhoneValid(formData.phone)){
+      setIsCurrentPageValid(false);
+      return;
+    }
+    if (!isContactMethodValid(formData.contactMethod)){
+      setIsCurrentPageValid(false);
+      return;
+    }
+
     setIsCurrentPageValid(true);
   };
-
   
 
   const handleChangeFirstName = (e) => {
@@ -162,57 +160,33 @@ function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
 
   const handleChangeLastName = (e) => {
     setFormData({...formData, lastName: e.target.value}); 
-    checkIsPageValid(); 
+    checkIsPageValid();
     console.log(formData);  
   };
 
-  // const handleChangePronouns = (e) => {
-  //   if (e.target.value === ""){
-  //     // set alarm, set required field modifier
-  //     setIsPronounsValid(false)
-  //     return;
-  //   }
-  //   setIsPronounsValid(true)
-  //   checkIsPageValid(); 
-  //   setFormData({...formData, pronouns: e.target.value}); 
-  //   console.log(formData);  
-  // };
+  const handleChangePronouns = (e) => {
+    setFormData({...formData, pronouns: e.target.value});
+    checkIsPageValid();
+    console.log(formData);
+  }
 
-  // const handleChangeContactMethod = (e) => {
-  //   if (e.target.value === ""){
-  //     // set alarm, set required field modifier
-  //     setIsContactMethodValid(false)
-  //     return;
-  //   }
-  //   setIsContactMethodValid(true)
-  //   checkIsPageValid(); 
-  //   setFormData({...formData, contactMethod: e.target.value});
-  //   console.log(formData);
-  // };
-  
-  // const handleChangeEmail = (e) => {
-  //   const newEmail = e.target.value;
-  //   if (newEmail === "" || !validEmail.test(newEmail)){
-  //     // set alarm, set required field modifier
-  //     setIsEmailValid(false)
-  //     return;
-  //   }
-  //   setIsEmailValid(true)
-  //   checkIsPageValid(); 
-  //   console.log(formData);
-  // }
+  const handleChangeEmail = (e) => {
+    setFormData({...formData, email: e.target.value});
+    checkIsPageValid();
+    console.log(formData);
+  }
 
-  // const handleChangePhone = (e) => {
-  //   if (e.target.value === ""){
-  //     // set alarm, set required field modifier
-  //     setIsPhoneValid(false)
-  //     return;
-  //   }
-  //   setIsPhoneValid(true)
-  //   checkIsPageValid(); 
-  //   setFormData({...formData, phone: e.target.value});    
-  //   console.log(formData);
-  // }
+  const handleChangePhone = (e) => {
+    setFormData({...formData, phone: e.target.value});
+    checkIsPageValid();
+    console.log(formData);
+  }
+
+  const handleChangeContactMethod = (e) => {
+    setFormData({...formData, contactMethod: e.target.value});
+    checkIsPageValid();
+    console.log(formData);
+  }
 
   checkIsPageValid();
   
@@ -225,8 +199,8 @@ function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
             <TextField className="formSectionItem" id="clientFirstName" label="First Name" variant="standard" required={true} onChange={(e) => handleChangeFirstName(e)} defaultValue={formData.firstName}/>
             <TextField className="formSectionItem" id="clientLastName" label="Last Name" variant="standard" required={true} onChange={(e) => handleChangeLastName(e)} defaultValue={formData.lastName}/>
           </div>
-          {/* <div className="pronouns selectDropDownContainer">
-            <FormControl className="pronouns selectDropDown" fullWidth>
+           <div className="pronouns selectDropDownContainer">
+            {/* <FormControl className="pronouns selectDropDown" fullWidth>
               <InputLabel id="demo-simple-select-label" required={true}>Pronouns</InputLabel>
               <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Pronouns" defaultValue={formData.pronouns} onChange={(e) => handleChangePronouns(e)}>
                 <MenuItem value={"He/Him"}>He/Him</MenuItem>
@@ -234,8 +208,8 @@ function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
                 <MenuItem value={"They/Them"}>They/Them</MenuItem>
                 <MenuItem value={"Other"}>Other</MenuItem>
               </Select>
-            </FormControl>
-            <TextField className="formSectionItem" id="clientPronouns" label="Pronouns" variant="standard" required={true} defaultValue={formData.otherPronouns} onChange={(e) => handleChangePronouns(e)}/>
+            </FormControl> */}
+            <TextField className="formSectionItem" id="clientPronouns" label="Pronouns" variant="standard" required={true} defaultValue={formData.pronouns} onChange={(e) => handleChangePronouns(e)}/>
           </div>
           <FormControl fullWidth>
             <div className="contactMethodContainer">
@@ -249,7 +223,7 @@ function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
                 <FormControlLabel value="phone" control={<Radio />} label="Phone"/>
               </RadioGroup>
             </div>
-          </FormControl> */}
+          </FormControl>
         </FormControl>
       </div>
     </div>
