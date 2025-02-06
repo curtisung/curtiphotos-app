@@ -1,84 +1,15 @@
 .bookShootPage {
   display: flex;
   flex-direction: column;
-  margin: 10px 0;
-  /* box-shadow: 6px 8px 3px rgb(153, 153, 153); */
   height: 100%;
-  border: solid .1px rgb(233, 233, 233);
 }
 
 .pageHeader {
-  border-bottom:solid 1px rgb(216, 216, 216);
   text-align: center;
-  background-color: #13262F;
   padding: 20px 0 20px 0;
-  color: #FFFFFF;
+  color: #3d0c11;
 }
 
 .pageTitle {
-  margin-top: 0 !important;
-}
-
-.bookingPageDescription {
-  padding: 0 10%;
-  text-align: center;
-  font-size: large;
-}
-
-.bookingPageRedirectText {
-  padding: 20px 10% 0;
-  text-align: center;
-  font-size: small;
-}
-
-.clientInputFieldsContainer {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.fullWidth {
-  width: 500px;
-}
-
-.clientInputFields {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 5px;
-  padding: 0 0 20px 0;
-  /* max-width: 50%; */
-  row-gap: 10px;
-  width: 500px;
-}
-
-.selectContactMethodContainer {
-  min-width: none;
-}
-
-.selectContactMethod {
-}
-
-.clientSchool {
-  padding-top: 15px;
-}
-
-.homeButton {
-  max-width: 10px;
-}
-
-.bookShootPage__bookButtonContainer {
-  display: flex;
-}
-
-.bookShootPage__homeButton {
-  align-self: left;
-}
-
-.contactInput {
-  align-self: flex-end;
-}
-
-.contactRadioButtonsContainer {
-  /* padding-right: 20px; */
+  font-family: Playfair Display;
 }

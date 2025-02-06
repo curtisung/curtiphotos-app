@@ -1,4 +1,12 @@
 .App {
-    background-color: #13262F;
-    height: 100%;
+    background-color: #fcf5e7;
+    height: 100vh;
+}
+
+h1 {
+    margin: 0;
+}
+
+p {
+    margin: 0;
 }
