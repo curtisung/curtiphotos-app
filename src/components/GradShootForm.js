@@ -18,7 +18,6 @@ import Select from "@mui/material/Select";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from "@mui/x-date-pickers";
-import { dayjs } from "dayjs";
 
 
 export default function GradShootForm() {
@@ -278,9 +277,7 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates})
   
   const shouldDisableDate = (date) => {
     var isBooked = bookedDates.find((bookedDate) => {
-      return date.year() === bookedDate.year() &&
-            date.month() === bookedDate.month() &&
-            date.date() === bookedDate.date();
+      return date.isBefore(bookedDate) || (date.year() === bookedDate.year() && date.month() === bookedDate.month() && date.date() === bookedDate.date());
     })
     return isBooked !== undefined;
   };
@@ -302,19 +299,55 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates})
 }
 
 
-function LocationSelect({formData, setFormData}) {
+function LocationSelect({formData, setFormData, setIsCurrentPageValid}) {
+  const schoolsList = [
+    "UC Irvine",
+    "UC Los Angeles",
+    "UC Riverside",
+    "UC San Diego"
+  ];
+
+  const schoolsDropdownListItems = schoolsList.map((schoolStr) => {
+    return <MenuItem value={schoolStr}>{schoolStr}</MenuItem>;
+  });
+
+
   const handleLocationChange = (e) => {
     var locations = [...formData.locations];
     if (e.target.checked) {
       locations.push(e.target.value);
     } else {
-      locations = locations.filter((location) => { return location === e.target.value });
+      locations = locations.filter((location) => { 
+        return location !== e.target.value });
     }
-    setFormData({
-      ...formData, 
-      locations: locations,
-    });
+    setFormData({...formData, locations: locations});
+    checkIsFormValid()
   }
+
+  const isSchoolValid = (school) => {
+    return schoolsList.includes(school);
+  }
+
+  const isLocationsValid = (locations) => {
+    return locations.length > 0;
+  }
+
+  const checkIsFormValid = () => {
+    console.log(formData);
+    console.log(formData.locations.length);
+
+    if (!isSchoolValid(formData.school)) {
+      setIsCurrentPageValid(false);
+      return;
+    }
+    if (!isLocationsValid(formData.locations)) {
+      setIsCurrentPageValid(false);
+      return;
+    }
+    setIsCurrentPageValid(true);
+  }
+
+  checkIsFormValid();
 
   return (
     <div className="locationSelect page">
@@ -323,10 +356,7 @@ function LocationSelect({formData, setFormData}) {
         <FormControl className="selectDropDownContainer" fullWidth>
           <InputLabel id="demo-simple-select-label">School</InputLabel>
           <Select labelId="demo-simple-select-label" id="demo-simple-select" label="school" defaultValue={formData.school} onChange={(e) => setFormData({...formData, school: e.target.value,})}>
-            <MenuItem value={"UC Irvine"}>UC Irvine</MenuItem>
-            <MenuItem value={"UC Los Angeles"}>UC Los Angeles</MenuItem>
-            <MenuItem value={"UC Riverside"}>UC Riverside</MenuItem>
-            <MenuItem value={"UC San Diego"}>UC San Diego</MenuItem>
+            {schoolsDropdownListItems}
           </Select>
         </FormControl>
         <FormControl className="locationCheckboxes" aria-labelledby="location-select-checkbox-group" defaultValue={null} name="location-select-checkbox-group" onChange={(e) => handleLocationChange(e)}>

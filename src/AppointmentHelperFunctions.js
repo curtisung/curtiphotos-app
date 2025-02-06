@@ -27,11 +27,10 @@ import dayjs from "dayjs";
 async function getBookedAppointments() {
     const q = query(collection(db, "appointments"));
     var querySnapshot = await getDocs(q)
-    // bundle each doc's firestore ID with field values,
-    // and date field converted to dayjs objects
+    // bundle each doc's firestore ID with field values and date field as dayjs objects
     var bookedApts = querySnapshot.docs.map((apt) => {
       var appointmentDocData = { ...apt.data(), id: apt.id };
-      appointmentDocData.date = new dayjs(appointmentDocData.date);
+      appointmentDocData.date = new dayjs(appointmentDocData.date.toDate());
       return appointmentDocData;
     });
     return bookedApts;
