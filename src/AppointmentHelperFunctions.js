@@ -1,5 +1,6 @@
-import { query, addDoc, getDocs, collection } from "firebase/firestore";
+import { query, addDoc, getDocs, collection, Timestamp } from "firebase/firestore";
 import { db } from "./firestore.js";
+import dayjs from "dayjs";
 
 /** The properties of the AppointmentDocData object are as follows 
  *  (this object is used in formData):
@@ -14,10 +15,9 @@ import { db } from "./firestore.js";
  * @property {string} email
  * @property {string} phone
  * @property {string} photoPackage
- * @property {Date} date - date of the appointment
+ * @property {dayjs} date - date of the appointment
  * @property {Array<string>} locations - array of shoot locations
  */
-
 
 /**
  * Queries firestore db for all Appointments and returns the 
@@ -27,9 +27,12 @@ import { db } from "./firestore.js";
 async function getBookedAppointments() {
     const q = query(collection(db, "appointments"));
     var querySnapshot = await getDocs(q)
-    // bundle each doc's firestore ID with field values
+    // bundle each doc's firestore ID with field values,
+    // and date field converted to dayjs objects
     var bookedApts = querySnapshot.docs.map((apt) => {
-      return { ...apt.data(), id: apt.id };
+      var appointmentDocData = { ...apt.data(), id: apt.id };
+      appointmentDocData.date = new dayjs(appointmentDocData.date);
+      return appointmentDocData;
     });
     return bookedApts;
 }
@@ -69,7 +72,7 @@ async function bookAppointment (formData) {
       email: formData.email,
       phone: formData.phone,
       photoPackage: formData.photoPackage,
-      date: formData.date,
+      date: Timestamp.fromDate(formData.date.toDate()),
       locations: formData.locations
     };
     addDoc(collection(db, "appointments"), appointmentData);

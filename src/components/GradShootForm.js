@@ -18,6 +18,7 @@ import Select from "@mui/material/Select";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from "@mui/x-date-pickers";
+import { dayjs } from "dayjs";
 
 
 export default function GradShootForm() {
@@ -50,7 +51,7 @@ export default function GradShootForm() {
     useEffect(() => {
         getBookedAppointments().then((bookedAptsArr) => {
           var bookedDates = bookedAptsArr.map((apt) => {
-            return apt.date.toDate()
+            return apt.date;
           })
           setBookedDates(bookedDates);
         })
@@ -270,16 +271,16 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates})
   }
   
   const handleChangeDate = (newDate) => {
-    setFormData({...formData, date: new Date(newDate)});
+    setFormData({...formData, date: newDate});
     checkIsFormValid();
     console.log(formData);
   }
   
   const shouldDisableDate = (date) => {
     var isBooked = bookedDates.find((bookedDate) => {
-      return date.year() === bookedDate.getFullYear() &&
-            date.month() === bookedDate.getMonth() &&
-            date.date() === bookedDate.getDate();
+      return date.year() === bookedDate.year() &&
+            date.month() === bookedDate.month() &&
+            date.date() === bookedDate.date();
     })
     return isBooked !== undefined;
   };
@@ -292,7 +293,7 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates})
       <div className="formSectionBody">
         <div className="calendar">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker value={formData.date === null ? new Date() : formData?.date} onChange={handleChangeDate} shouldDisableDate={shouldDisableDate}/>
+            <DatePicker value={formData?.date} onChange={handleChangeDate} shouldDisableDate={shouldDisableDate}/>
           </LocalizationProvider>
         </div>
       </div>    
@@ -403,7 +404,7 @@ function ReviewPage({formData, setFormData}) {
 function ConfirmationPage({ formData }){
   return (
     <div className="ConfirmationPage">
-      Your appointment for {formData?.date?.toDateString()} has been booked. You will receive a confirmation email shortly.
+      Your appointment for {formData?.date?.toString()} has been booked. You will receive a confirmation email shortly.
     </div>
   );
 }
