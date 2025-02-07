@@ -17,8 +17,10 @@ function LandingPage() {
 
   return (
     <div className="landingPage">
-      <h1 className="greetingCard"><span className="greetingCard__hello">Hello,</span><span className="greetingCard__curtis"> I'm Curtis!</span></h1>
-      <p className="tagline">I'm a photographer, videographer, and your friendly neighborhood camera guy.</p>
+      <div className="greetingCard">
+        <h1 className="greetingCardHeading"><span className="greetingCardHeading__hello">Hello,</span><span className="greetingCardHeading__curtis"> I'm Curtis!</span></h1>
+        <p className="greetingCardTagline">photographer, videographer, and your friendly neighborhood camera guy.</p>
+      </div>
       {/* <div className="landingPage__photos">
         <div className="landingPage__imageContainer" onClick={navigateToWorks}>
           <img
@@ -45,7 +47,6 @@ function LandingPage() {
         <div className="navLink" onClick={navigateToPhotography}>photography</div>
         <div className="navLink" onClick={navigateToVideography}>videography</div>
       </div>
-      
     </div>
   );
 }

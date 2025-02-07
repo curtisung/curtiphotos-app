@@ -4,36 +4,47 @@
 }
 
 .greetingCard {
-    text-align: center;
-    font-family: Playfair Display;
-    font-weight: 400;
-    font-size: 114.9px;
+    position: absolute;
+    /* padding-top: 9rem; */
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%,-48%);
 }
 
-.greetingCard__hello {
+.greetingCardHeading {
+    text-wrap: nowrap;
+    font-family: Playfair Display;
+    font-weight: 400;
+    font-size: 7rem;
+}
+
+.greetingCardHeading__hello {
     color: #e1bd41;
 }
 
-.greetingCard__curtis {
+.greetingCardHeading__curtis {
     color: #3d0c11;
 }
 
-.tagline {
+.greetingCardTagline {
     color: #191919;
-}
-
-.tagline {
+    padding: .75rem 0 0 0;
     text-align: center;
 }
 
 .navLinkList {
+    position: absolute;
+    top: 87%;
+    left: 50%;
+    transform: translate(-50%,-87%);
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
 }
 
 .navLink {
+    padding: 0 4rem;
+    text-wrap: nowrap;
     color: #3d0c11;
     cursor: pointer;
     padding-top: 10px;

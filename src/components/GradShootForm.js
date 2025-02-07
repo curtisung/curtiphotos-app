@@ -311,7 +311,6 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid}) {
     return <MenuItem value={schoolStr}>{schoolStr}</MenuItem>;
   });
 
-
   const handleLocationChange = (e) => {
     var locations = [...formData.locations];
     if (e.target.checked) {

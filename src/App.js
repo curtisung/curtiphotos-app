@@ -14,7 +14,9 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <CurtiHeader/>
+        <div className="headerContainer">
+          <CurtiHeader/>
+        </div>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/contact" element={<ContactPage />} />
