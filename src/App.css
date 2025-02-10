@@ -1,14 +1,12 @@
 .App {
     background-color: #fcf5e7;
-    height: 100vh;
+    height: 100%;
+    /*TODO:  make landing page elements positioned normally to APP will extend all the way down */
+    min-height: 100vh;
 }
 
 .headerContainer {
-    position:absolute;
-    top: 5%;
-    left: 50%;
-    transform: translate(-50%,-5%);
-    /* padding-top: 1.25rem */
+    padding-top: 1.25rem
 }
 
 h1 {

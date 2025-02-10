@@ -3,14 +3,12 @@ import "./LandingPage.css";
 import { useNavigate } from "react-router-dom";
 // import michaelPortrait from "./michael-portrait.jpg";
 // import nateChristinaPortrait from "./nate-christina-portrait.jpg";
-import CurtiHeader from "./CurtiHeader";
 
 function LandingPage() {
   const navigate = useNavigate();
 
-  const navigateToBookingPage = () => { navigate("/book-a-shoot");};
+  const navigateToChooseShootPage = () => { navigate("/choose-shoot");};
   const navigateToPhotography = () => { navigate("/photography"); };
-  const navigateToLanding = () => { navigate("/"); }
   const navigateToContact = () => { navigate("/contact"); }
   const navigateToAboutPage = () => { navigate("/about"); }
   const navigateToVideography = () => { navigate("/videography"); }
@@ -43,7 +41,7 @@ function LandingPage() {
       <div className="navLinkList">
         <div className="navLink" onClick={navigateToAboutPage}>about me</div>
         <div className="navLink" onClick={navigateToContact}>contact</div>
-        <div className="navLink" onClick={navigateToBookingPage}>book with me</div>
+        <div className="navLink" onClick={navigateToChooseShootPage}>book with me</div>
         <div className="navLink" onClick={navigateToPhotography}>photography</div>
         <div className="navLink" onClick={navigateToVideography}>videography</div>
       </div>
