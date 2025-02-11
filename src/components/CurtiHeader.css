@@ -1,6 +1,14 @@
 .curtiHeader {
+    font-size: 1.75rem;
     font-family: Lazy Dog;
     color: #3d0c11;
     text-align: center;
     cursor: pointer;
+    z-index: 100;
+    position: relative;
+    /* background: rgba(204, 204, 204, 0.5);     */
+}
+
+.headerText {
+    text-shadow: 0 0 1rem #fcf5e7, 0 0 1rem #fcf5e7, 0 0 1rem #fcf5e7, 0 0 1rem #fcf5e7;     
 }

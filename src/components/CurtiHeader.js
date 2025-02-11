@@ -6,7 +6,7 @@ function CurtiHeader() {
     const navigate = useNavigate();
     const navigateToLanding = () => {navigate("/");}
     return (
-        <h1 className="curtiHeader" onClick={navigateToLanding}>CURTI.</h1>
+        <h1 className="curtiHeader" onClick={navigateToLanding}><span className="headerText">CURTI.</span></h1>
     );
 }
 
