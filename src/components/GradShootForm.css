@@ -12,7 +12,7 @@
   display: flex;
   /* align-items: center; */
   flex-direction: column;
-  width: 35%;
+  width: 100%;
   justify-content: center;
 
 }
@@ -25,7 +25,10 @@
 }
 
 .formSectionHeader {
-  text-align: center;
+  text-align: left;
+  padding-left: 3rem;
+  color: #3d0c11;
+  margin: 0 !important;
 }
 
 .formSectionBody {
@@ -47,15 +50,20 @@
   flex: 1;
 }
 
-/*
-Name Entry
-*/
-/* .nameEntry {
-  padding-bottom: 20px;
-  border-bottom: solid 1px rgb(172, 172, 172);
-  width: 100%;
-} */
+/*Package Select*/
+.packageList {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+}
 
+.packageButton .active {
+  
+}
+
+
+
+/*Name Entry*/
 .pronouns.selectDropDownContainer {
   margin: 20px 0 0 0 !important;
   display: flex;

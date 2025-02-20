@@ -1,6 +1,7 @@
 .bookShootPage {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .pageHeader {
@@ -11,5 +12,4 @@
 
 .pageTitle {
   font-family: Playfair Display;
-  font-size: 4rem;
 }

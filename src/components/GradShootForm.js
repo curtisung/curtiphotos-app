@@ -39,8 +39,8 @@ export default function GradShootForm() {
     });
 
     const formPages = [
-      <ContactEntry formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
       <PackageSelect formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
+      <ContactEntry formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
       <DateSelect formData={formData} setFormData={setFormData} bookedDates={bookedDates} setIsCurrentPageValid={setIsCurrentPageValid}/>,
       <LocationSelect formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
       <ReviewPage formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
@@ -92,6 +92,98 @@ export default function GradShootForm() {
         </div>
       </div>
     );
+}
+
+
+function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
+  const [buttonMarkupList, setButtonMarkupList] = useState([]);
+  const [activeButton, setActiveButton] = useState();
+  const packageInfo = new Map([
+    ["solo1", {
+      title: "Solos (1.5 hour)",
+      numClients: "1 person",
+      description: "50-70 edited photos, hand-selected by you. Professional poses and my full, undivided attention!",
+      duration: "1.5 hours, 5:30PM-7PM",
+      price: "$120"
+    }],
+    ["solo2", {
+      title: "Solos (2 hour)",
+      numClients: "1 person",
+      description: "60-80 edited photos, hand-selected by you. Professional poses and my full, undivided attention!",
+      duration: "2 hours, 5PM-7PM",
+      price: "$140"
+    }],
+    ["duos", {
+      title: "Duos",
+      numClients: "2 people",
+      description: "60-80 edited photos, hand-selected by you. Buddy photos and solo photos!",
+      duration: "2 hours, 5PM-7PM",
+      price: "$230"
+    }],
+    ["triplets", {
+      title: "Triplets",
+      numClients: "3 people",
+      description: "65-85 edited photos. Group photos and solo photos!",
+      duration: "2 hours, 5PM-7PM",
+      price: "$330"
+    }],
+    ["quads", {
+      title: "Quads",
+      numClients: "4 people",
+      description: "70-90 edited photos. Group photos and solo photos!",
+      duration: "2 hours, 5PM-7PM",
+      price: "$420"
+    }],
+    ["fivePlus", {
+      title: "Five Plus",
+      numClients: "5+ people (+$95 per each additional person)",
+      description: "75-100 edited photos. Emphasis on group photos with a few solos!",
+      duration: "2 hours, 5PM-7PM",
+      price: "$475+"
+    }]
+  ])
+
+  const handleChangePhotoPackage = (e) => {
+    setFormData({...formData, photoPackage: e.target.value});
+    // console.log(activeButton);
+    setActiveButton(e.target.dataset.id);
+    checkIsPageValid();
+  }
+
+  const createbuttonMarkupList = () => {
+    const buttons = [];
+    for (let eachPackageData of packageInfo.values()) {
+      buttons.push(<Button data-id={eachPackageData.id} className="packageButton" variant={activeButton === eachPackageData.id ? "contained" : "outlined"} value={eachPackageData.title} onClick={handleChangePhotoPackage}>{eachPackageData.title}</Button>);
+    }    
+    return buttons;
+  }
+
+  const isPackageSelected = (photoPackage) => {
+    return photoPackage !== "" && photoPackage !== null && photoPackage !== undefined;
+  }
+
+  const checkIsPageValid = () => {
+    if (!isPackageSelected(formData.photoPackage)) {
+      setIsCurrentPageValid(false);
+      return;
+    }
+    setIsCurrentPageValid(true);
+  }
+  
+  useEffect(() => {
+    setButtonMarkupList(createbuttonMarkupList());
+  }, []);
+
+  checkIsPageValid();
+
+  return (
+    <div className="packageSelect page">
+      <h2 className="formSectionHeader">Select a Photo Package</h2>
+      <div className="formSectionBody">
+        <ul className="packageList">{buttonMarkupList}</ul>
+      </div>
+    </div>
+  );
 }
 
 
@@ -222,40 +314,6 @@ function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
 }
 
 
-function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
-  
-  const isPackageSelected = (photoPackage) => {
-    return photoPackage !== "" && photoPackage !== null && photoPackage !== undefined;
-  }
-
-  const checkIsPageValid = () => {
-    if (!isPackageSelected(formData.photoPackage)) {
-      setIsCurrentPageValid(false);
-      return;
-    }
-    setIsCurrentPageValid(true);
-  }
-  
-  const handleChangePhotoPackage = (e) => {
-    setFormData({...formData, photoPackage: e.target.value});
-    checkIsPageValid();
-  }
-
-  checkIsPageValid();
-  return (
-    <div className="packageSelect page">
-      <h2 className="formSectionHeader">Select a Photo Package</h2>
-      <div className="formSectionBody">
-        <RadioGroup className="photoPackageRadioButtons" aria-labelledby="demo-radio-buttons-group-label" defaultValue={formData.photoPackage} name="radio-buttons-group" onChange={handleChangePhotoPackage}>
-          <FormControlLabel value="Package 1" control={<Radio />} label="Package 1"/>
-          <FormControlLabel value="Package 2" control={<Radio />} label="Package 2"/>
-        </RadioGroup>
-      </div>
-    </div>
-  );
-}
-
-
 function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates}) {
   const isDateValid = (date) => {
     return date !== null;
@@ -306,7 +364,6 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid}) {
     "UC Riverside",
     "UC San Diego"
   ];
-
   const schoolsDropdownListItems = schoolsList.map((schoolStr) => {
     return <MenuItem value={schoolStr}>{schoolStr}</MenuItem>;
   });
@@ -372,7 +429,6 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid}) {
 
 /**
   * Displays the details of the appointment to the user.
-  * Need dynamic displays for pronouns & locations
   */
 function ReviewPage({formData, setFormData}) {
   
