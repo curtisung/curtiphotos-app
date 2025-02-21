@@ -11,6 +11,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import { validEmail } from "../Regex";
 import { Checkbox, TextField } from "@mui/material";
 import { Button } from "@mui/material";
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -90,10 +93,9 @@ export default function GradShootForm() {
               <div className="formSectionContainer">
                 {formPages[page-1]}
               </div>
-              <hr color="diana" className="separationBorder"/>
               <div className="navigationButtons">
-                {(page > 1 && page < formPages.length) && <Button className="gradShootFormButton back" variant="outlined" color="diana" onClick={() => changePage(-1)}>{leftButtonText}</Button>}
-                {(page < formPages.length) && <Button className="gradShootFormButton next" variant="contained" color="diana" disabled={!isCurrentPageValid} onClick={() => changePage(1)}>{rightButtonText}</Button>}
+                {(page > 1 && page < formPages.length) && <Button className="gradShootFormButton back" variant="outlined" color="diana" startIcon={<ArrowLeftIcon/>} onClick={() => changePage(-1)}>{leftButtonText}</Button>}
+                {(page < formPages.length) && <Button className="gradShootFormButton next" variant="contained" color="diana" endIcon={<ArrowRightIcon/>} disabled={!isCurrentPageValid} onClick={() => changePage(1)}>{rightButtonText}</Button>}
               </div>
           </div>
         </div>
@@ -287,7 +289,11 @@ function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
 }
 
 
-function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates}) {
+function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates}) {  
+  const handleClearDate = () => {
+    setFormData({...formData, date: null});
+  }
+
   const isDateValid = (date) => {
     return date !== null;
   }
@@ -301,7 +307,11 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates})
   }
   
   const handleChangeDate = (newDate) => {
-    setFormData({...formData, date: newDate});
+    if (newDate) {
+      setFormData({...formData, date: new dayjs(newDate)});
+    } else {
+      setFormData({...formData, date: null});
+    }
     checkIsFormValid();
     console.log(formData);
   }
@@ -312,7 +322,7 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates})
       return date.isBefore(today) || (date.year() === bookedDate.year() && date.month() === bookedDate.month() && date.date() === bookedDate.date());
     })
     return isBooked !== undefined;
-  };
+  }
 
   checkIsFormValid();
 
@@ -322,7 +332,10 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates})
       <div className="formSectionBody">
         <div className="calendar">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <StaticDatePicker  value={formData?.date} onChange={handleChangeDate} shouldDisableDate={shouldDisableDate}/>
+            <StaticDatePicker value={formData?.date} onChange={handleChangeDate} shouldDisableDate={shouldDisableDate} slots={{actionBar: () => {return<></>}}} />
+            <ThemeProvider theme={dianaTheme}>
+              <Button color="diana" onClick={handleClearDate}>CLEAR</Button>
+            </ThemeProvider>
           </LocalizationProvider>
         </div>
       </div>    

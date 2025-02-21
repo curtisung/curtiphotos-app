@@ -57,10 +57,11 @@ async function deleteAllBookedAppointments() {
 }
 
 /**
- * Posts an Appointment to firestore db
+ * Posts an Appointment to firestore db.
  * @param {Object} formData - Shoot form data with appointment properties
  */
 async function bookAppointment (formData) {
+  // Convert date from dayjs -> firestore Timestamp type
     const appointmentData = {...formData,
       date: Timestamp.fromDate(formData.date.toDate())
     };

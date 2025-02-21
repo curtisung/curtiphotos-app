@@ -50,6 +50,26 @@
   flex: 1;
 }
 
+/*
+Buttons
+*/
+
+.navigationButtons {
+  padding: 2rem 5rem 1rem 0;
+  align-self: flex-end;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.gradShootFormButton {
+  width: 100px;
+  height: 40px;
+}
+
+
 /*Package Select*/
 .packageSelectContainer {
   display: flex;
@@ -161,7 +181,10 @@ Calendar
 
 .MuiPickersLayout-root {
   background-color: transparent !important;
+}
 
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  
 }
 
 /*
@@ -222,24 +245,6 @@ border
   width: 60px;
   margin: 20px 0;
   border-top:  1px solid #3d0c11;
-}
-
-/*
-Buttons
-*/
-
-.navigationButtons {
-  align-self: center;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.gradShootFormButton {
-  width: 100px;
-  height: 40px;
 }
 
 
