@@ -5,6 +5,9 @@ import "./GradShootForm.css";
 import { bookAppointment, getBookedAppointments } from "../AppointmentHelperFunctions.js";
 import { GRAD_PACKAGE_INFO } from "../constants.js";
 
+import { dianaTheme } from "../themes.js";
+import { ThemeProvider } from "@mui/material/styles";
+
 import { validEmail } from "../Regex";
 import { Checkbox, TextField } from "@mui/material";
 import { Button } from "@mui/material";
@@ -80,18 +83,20 @@ export default function GradShootForm() {
     const rightButtonText = page === formPages.length-1 ? "Submit" : "Next";
 
     return (
-      <div className="gradShootForm">
-        <div className="gradShootForm formSection">
-            <div className="formSectionContainer">
-              {formPages[page-1]}
-            </div>
-            <hr className="separationBorder"/>
-            <div className="navigationButtons">
-              {(page > 1 && page < formPages.length) && <Button className="gradShootFormButton back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>}
-              {(page < formPages.length) && <Button className="gradShootFormButton next" variant="contained" disabled={!isCurrentPageValid} onClick={() => changePage(1)}>{rightButtonText}</Button>}
-            </div>
+      <ThemeProvider theme={dianaTheme}>
+        <div className="gradShootForm">
+          <div className="gradShootForm formSection">
+              <div className="formSectionContainer">
+                {formPages[page-1]}
+              </div>
+              <hr color="diana" className="separationBorder"/>
+              <div className="navigationButtons">
+                {(page > 1 && page < formPages.length) && <Button className="gradShootFormButton back" variant="outlined" color="diana" onClick={() => changePage(-1)}>{leftButtonText}</Button>}
+                {(page < formPages.length) && <Button className="gradShootFormButton next" variant="contained" color="diana" disabled={!isCurrentPageValid} onClick={() => changePage(1)}>{rightButtonText}</Button>}
+              </div>
+          </div>
         </div>
-      </div>
+      </ThemeProvider>
     );
 }
 
@@ -111,7 +116,8 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
           className="packageButton" 
           variant={formData.photoPackageID === eachPackageData.id ? "contained" : "outlined"} 
           value={eachPackageData.title} 
-          onClick={handleChangePhotoPackage}>
+          onClick={handleChangePhotoPackage}
+          color="diana">
             {eachPackageData.title}
         </Button>
       );
@@ -148,7 +154,7 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
           </ul>}
         </div>
       </div>
-    </div>
+    </div>  
   );
 }
 
