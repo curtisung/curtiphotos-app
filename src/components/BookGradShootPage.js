@@ -7,7 +7,7 @@ function BookGradShootPage() {
   const bookingPageRedirectText = "\nTo book me for other types of photoshoots or wedding/event coverage, go to the Contact page and send a message for a quote.";
 
   return (
-    <div className="bookShootPage">
+    <div className="bookGradShootPage">
       <div className="pageHeader">
         <h1 className="pageTitle">Graduation</h1>
       </div>

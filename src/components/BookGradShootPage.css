@@ -1,15 +1,15 @@
-.bookShootPage {
+.bookGradShootPage {
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .pageHeader {
   text-align: center;
-  padding: 20px 0 20px 0;
+  padding: 0;
   color: #3d0c11;
 }
 
 .pageTitle {
   font-family: Playfair Display;
+  font-size: 4rem;
 }

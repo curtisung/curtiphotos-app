@@ -86,8 +86,8 @@ export default function GradShootForm() {
             </div>
             <hr className="separationBorder"/>
             <div className="navigationButtons">
-              {(page > 1 && page < formPages.length) && <Button className="bookShootPage__Button back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>}
-              {(page < formPages.length) && <Button className="bookShootPage__Button next" variant="contained" disabled={!isCurrentPageValid} onClick={() => changePage(1)}>{rightButtonText}</Button>}
+              {(page > 1 && page < formPages.length) && <Button className="gradShootFormButton back" variant="outlined" onClick={() => changePage(-1)}>{leftButtonText}</Button>}
+              {(page < formPages.length) && <Button className="gradShootFormButton next" variant="contained" disabled={!isCurrentPageValid} onClick={() => changePage(1)}>{rightButtonText}</Button>}
             </div>
         </div>
       </div>
@@ -96,10 +96,10 @@ export default function GradShootForm() {
 
 
 function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
-  const [buttonMarkupList, setButtonMarkupList] = useState([]);
-  const [activeButton, setActiveButton] = useState();
+  const [activeButton, setActiveButton] = useState("");
   const packageInfo = new Map([
     ["solo1", {
+      id: "solo1",
       title: "Solos (1.5 hour)",
       numClients: "1 person",
       description: "50-70 edited photos, hand-selected by you. Professional poses and my full, undivided attention!",
@@ -107,6 +107,7 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
       price: "$120"
     }],
     ["solo2", {
+      id: "solo2",
       title: "Solos (2 hour)",
       numClients: "1 person",
       description: "60-80 edited photos, hand-selected by you. Professional poses and my full, undivided attention!",
@@ -114,6 +115,7 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
       price: "$140"
     }],
     ["duos", {
+      id: "duos",
       title: "Duos",
       numClients: "2 people",
       description: "60-80 edited photos, hand-selected by you. Buddy photos and solo photos!",
@@ -121,6 +123,7 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
       price: "$230"
     }],
     ["triplets", {
+      id: "triplets",
       title: "Triplets",
       numClients: "3 people",
       description: "65-85 edited photos. Group photos and solo photos!",
@@ -128,6 +131,7 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
       price: "$330"
     }],
     ["quads", {
+      id: "quads",
       title: "Quads",
       numClients: "4 people",
       description: "70-90 edited photos. Group photos and solo photos!",
@@ -135,6 +139,7 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
       price: "$420"
     }],
     ["fivePlus", {
+      id: "fivePlus",
       title: "Five Plus",
       numClients: "5+ people (+$95 per each additional person)",
       description: "75-100 edited photos. Emphasis on group photos with a few solos!",
@@ -145,15 +150,23 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
 
   const handleChangePhotoPackage = (e) => {
     setFormData({...formData, photoPackage: e.target.value});
-    // console.log(activeButton);
-    setActiveButton(e.target.dataset.id);
+    setActiveButton(e.target.id);
     checkIsPageValid();
   }
 
   const createbuttonMarkupList = () => {
     const buttons = [];
     for (let eachPackageData of packageInfo.values()) {
-      buttons.push(<Button data-id={eachPackageData.id} className="packageButton" variant={activeButton === eachPackageData.id ? "contained" : "outlined"} value={eachPackageData.title} onClick={handleChangePhotoPackage}>{eachPackageData.title}</Button>);
+      buttons.push(
+        <Button 
+          id={eachPackageData.id} 
+          className="packageButton" 
+          variant={activeButton === eachPackageData.id ? "contained" : "outlined"} 
+          value={eachPackageData.title} 
+          onClick={handleChangePhotoPackage}>
+            {eachPackageData.title}
+        </Button>
+      );
     }    
     return buttons;
   }
@@ -170,17 +183,21 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
     setIsCurrentPageValid(true);
   }
   
-  useEffect(() => {
-    setButtonMarkupList(createbuttonMarkupList());
-  }, []);
-
   checkIsPageValid();
 
+  const buttonMarkupList = createbuttonMarkupList();
   return (
     <div className="packageSelect page">
       <h2 className="formSectionHeader">Select a Photo Package</h2>
-      <div className="formSectionBody">
+      <div className="formSectionBody packageSelectContainer">
         <ul className="packageList">{buttonMarkupList}</ul>
+        <div className="packageDescriptionContainer">
+          <div className="packageTitle">{packageInfo.get(activeButton)?.title}</div>
+          <div className="packagePrice">{packageInfo.get(activeButton)?.price}</div>
+          <div className="packageNumClients">{packageInfo.get(activeButton)?.numClients}</div>
+          <div className="packageDescription">{packageInfo.get(activeButton)?.description}</div>
+          <div className="packageDuration">{packageInfo.get(activeButton)?.duration}</div>
+        </div>
       </div>
     </div>
   );

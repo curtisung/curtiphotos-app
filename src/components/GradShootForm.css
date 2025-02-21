@@ -51,14 +51,53 @@
 }
 
 /*Package Select*/
+.packageSelectContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 20rem;
+}
+
 .packageList {
   list-style-type: none;
   display: flex;
   flex-direction: column;
+  padding: 0 0 0 0;
+  gap:1rem;
+  min-width: 50%;
+  align-items: center;
+
+  /* properties as child */
+  flex-grow: 1;
 }
 
-.packageButton .active {
-  
+.packageButton {
+  width: 27rem;
+}
+
+.packageDescriptionContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  min-height: 100%;
+  min-width: 50%;
+  text-wrap: wrap;
+
+  /* properties as child */
+  flex-grow: 1;
+}
+
+.packageTitle {
+  width: 100%;
+  font-size: 3rem;
+  text-align: left
+}
+
+.packageDescription {
+  text-align: center;
+  width: 20rem;
 }
 
 
@@ -195,7 +234,7 @@ Buttons
   margin-bottom: 20px;
 }
 
-.bookShootPage__Button {
+.gradShootFormButton {
   width: 100px;
   height: 40px;
 }

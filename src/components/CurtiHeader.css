@@ -2,7 +2,8 @@
     font-size: 1.75rem;
     font-family: Lazy Dog;
     color: #3d0c11;
-    text-align: center;
+    text-align: left;
+    padding-left: 2rem;
     cursor: pointer;
     z-index: 100;
     position: relative;
