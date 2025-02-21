@@ -2,7 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import "./GradShootForm.css";
-import { bookAppointment, getBookedAppointments, deleteAllBookedAppointments } from "../AppointmentHelperFunctions.js";
+import { bookAppointment, getBookedAppointments } from "../AppointmentHelperFunctions.js";
+import { GRAD_PACKAGE_INFO } from "../constants.js";
 
 import { validEmail } from "../Regex";
 import { Checkbox, TextField } from "@mui/material";
@@ -28,12 +29,12 @@ export default function GradShootForm() {
         firstName: null,
         lastName: null,
         pronouns: null,
-        otherPronouns: null,
         school: null,
         contactMethod: "email",
         email: null,
         phone: null,
-        photoPackage: null,
+        photoPackageTitle: null,
+        photoPackageID: null,
         date: null,
         locations: [],
     });
@@ -96,72 +97,19 @@ export default function GradShootForm() {
 
 
 function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
-  const [activeButton, setActiveButton] = useState("");
-  const packageInfo = new Map([
-    ["solo1", {
-      id: "solo1",
-      title: "Solos (1.5 hour)",
-      numClients: "1 person",
-      description: "50-70 edited photos, hand-selected by you. Professional poses and my full, undivided attention!",
-      duration: "1.5 hours, 5:30PM-7PM",
-      price: "$120"
-    }],
-    ["solo2", {
-      id: "solo2",
-      title: "Solos (2 hour)",
-      numClients: "1 person",
-      description: "60-80 edited photos, hand-selected by you. Professional poses and my full, undivided attention!",
-      duration: "2 hours, 5PM-7PM",
-      price: "$140"
-    }],
-    ["duos", {
-      id: "duos",
-      title: "Duos",
-      numClients: "2 people",
-      description: "60-80 edited photos, hand-selected by you. Buddy photos and solo photos!",
-      duration: "2 hours, 5PM-7PM",
-      price: "$230"
-    }],
-    ["triplets", {
-      id: "triplets",
-      title: "Triplets",
-      numClients: "3 people",
-      description: "65-85 edited photos. Group photos and solo photos!",
-      duration: "2 hours, 5PM-7PM",
-      price: "$330"
-    }],
-    ["quads", {
-      id: "quads",
-      title: "Quads",
-      numClients: "4 people",
-      description: "70-90 edited photos. Group photos and solo photos!",
-      duration: "2 hours, 5PM-7PM",
-      price: "$420"
-    }],
-    ["fivePlus", {
-      id: "fivePlus",
-      title: "Five Plus",
-      numClients: "5+ people (+$95 per each additional person)",
-      description: "75-100 edited photos. Emphasis on group photos with a few solos!",
-      duration: "2 hours, 5PM-7PM",
-      price: "$475+"
-    }]
-  ])
-
   const handleChangePhotoPackage = (e) => {
-    setFormData({...formData, photoPackage: e.target.value});
-    setActiveButton(e.target.id);
+    setFormData({...formData, photoPackageTitle: e.target.value, photoPackageID: e.target.id});
     checkIsPageValid();
   }
 
   const createbuttonMarkupList = () => {
     const buttons = [];
-    for (let eachPackageData of packageInfo.values()) {
+    for (let eachPackageData of GRAD_PACKAGE_INFO.values()) {
       buttons.push(
         <Button 
           id={eachPackageData.id} 
           className="packageButton" 
-          variant={activeButton === eachPackageData.id ? "contained" : "outlined"} 
+          variant={formData.photoPackageID === eachPackageData.id ? "contained" : "outlined"} 
           value={eachPackageData.title} 
           onClick={handleChangePhotoPackage}>
             {eachPackageData.title}
@@ -171,12 +119,12 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
     return buttons;
   }
 
-  const isPackageSelected = (photoPackage) => {
-    return photoPackage !== "" && photoPackage !== null && photoPackage !== undefined;
+  const isPackageSelected = (photoPackageTitle) => {
+    return photoPackageTitle !== "" && photoPackageTitle !== null && photoPackageTitle !== undefined;
   }
 
   const checkIsPageValid = () => {
-    if (!isPackageSelected(formData.photoPackage)) {
+    if (!isPackageSelected(formData.photoPackageTitle)) {
       setIsCurrentPageValid(false);
       return;
     }
@@ -192,11 +140,12 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
       <div className="formSectionBody packageSelectContainer">
         <ul className="packageList">{buttonMarkupList}</ul>
         <div className="packageDescriptionContainer">
-          <div className="packageTitle">{packageInfo.get(activeButton)?.title}</div>
-          <div className="packagePrice">{packageInfo.get(activeButton)?.price}</div>
-          <div className="packageNumClients">{packageInfo.get(activeButton)?.numClients}</div>
-          <div className="packageDescription">{packageInfo.get(activeButton)?.description}</div>
-          <div className="packageDuration">{packageInfo.get(activeButton)?.duration}</div>
+          <div className="packageDescription title">{GRAD_PACKAGE_INFO.get(formData.photoPackageID)?.price} {formData.photoPackageID && "|"} {GRAD_PACKAGE_INFO.get(formData.photoPackageID)?.title}</div>
+          {formData.photoPackageID && <ul className="packageDescription body">
+            <li><div className="packageDescription numClients">{GRAD_PACKAGE_INFO.get(formData.photoPackageID)?.numClients}</div></li>
+            <li><div className="packageDescription description">{GRAD_PACKAGE_INFO.get(formData.photoPackageID)?.description}</div></li>
+            <li><div className="packageDescription duration">Time:{GRAD_PACKAGE_INFO.get(formData.photoPackageID)?.duration}</div></li>
+          </ul>}
         </div>
       </div>
     </div>
@@ -469,7 +418,7 @@ function ReviewPage({formData, setFormData}) {
         </div>
         <div className="reviewPage__pronounsContainer appointmentDetailSection">
           <h4 className="reviewPage__pronouns">Pronouns:</h4>
-          <p>{formData?.pronouns !== "Other" ? formData?.pronouns : formData?.otherPronouns}</p>
+          <p>{formData?.pronouns}</p>
         </div>
         <div className="reviewPage__phoneNumberContainer appointmentDetailSection">
           <h4 className="reviewPage__phone">Phone:</h4>

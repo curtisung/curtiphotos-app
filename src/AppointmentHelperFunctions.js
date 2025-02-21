@@ -9,12 +9,12 @@ import dayjs from "dayjs";
  * @property {string} firstName
  * @property {string} lastName
  * @property {string} pronouns
- * @property {string} otherPronouns
  * @property {string} school
  * @property {string} contactMethod - client's preferred contact method
  * @property {string} email
  * @property {string} phone
- * @property {string} photoPackage
+ * @property {string} photoPackageID - Identifier code for selected photo package type 
+ * @property {string} photoPackageTitle - Title of selected photo package
  * @property {dayjs} date - date of the appointment
  * @property {Array<string>} locations - array of shoot locations
  */
@@ -61,18 +61,8 @@ async function deleteAllBookedAppointments() {
  * @param {Object} formData - Shoot form data with appointment properties
  */
 async function bookAppointment (formData) {
-    const appointmentData = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      pronouns: formData.pronouns,
-      otherPronouns: formData.otherPronouns,
-      school: formData.school,
-      contactMethod: formData.contactMethod,
-      email: formData.email,
-      phone: formData.phone,
-      photoPackage: formData.photoPackage,
-      date: Timestamp.fromDate(formData.date.toDate()),
-      locations: formData.locations
+    const appointmentData = {...formData,
+      date: Timestamp.fromDate(formData.date.toDate())
     };
     addDoc(collection(db, "appointments"), appointmentData);
   }

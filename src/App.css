@@ -3,6 +3,7 @@
     height: 100%;
     /*TODO:  make landing page elements positioned normally to APP will extend all the way down */
     min-height: 100vh;
+    width: 100%;
 }
 
 .headerContainer {
