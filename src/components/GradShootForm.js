@@ -21,7 +21,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from "@mui/x-date-pickers";
+import { StaticDatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
 
@@ -322,7 +322,7 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates})
       <div className="formSectionBody">
         <div className="calendar">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker value={formData?.date} onChange={handleChangeDate} shouldDisableDate={shouldDisableDate}/>
+            <StaticDatePicker  value={formData?.date} onChange={handleChangeDate} shouldDisableDate={shouldDisableDate}/>
           </LocalizationProvider>
         </div>
       </div>    
@@ -330,6 +330,9 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates})
   );
 }
 
+function DateContactEntry({formData, setFormData, setIsCurrentPageValid, bookedDates}) {
+  
+}
 
 function LocationSelect({formData, setFormData, setIsCurrentPageValid}) {
   const schoolsList = [

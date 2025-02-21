@@ -7,6 +7,7 @@ const dianaTheme = createTheme({
         light: '#FCF5E7',
         dark: '#542329',
         contrastText: '#FFFFFF',
+        backgroundColor: 'fcf5e7',
       },
     },
   });

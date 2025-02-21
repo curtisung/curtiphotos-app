@@ -159,8 +159,9 @@
 Calendar
 */
 
-.css-1rtg91x-MuiDateCalendar-root {
-  max-height: 300px !important;
+.MuiPickersLayout-root {
+  background-color: transparent !important;
+
 }
 
 /*
