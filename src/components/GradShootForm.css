@@ -137,9 +137,6 @@
   gap: 20px;
 }
 
-.contactMethodRadioButtonsContainer > FormLabel {
-}
-
 .methodInputContainer {
   padding-bottom: 3px;
   display: flex;

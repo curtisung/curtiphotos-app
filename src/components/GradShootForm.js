@@ -22,6 +22,7 @@ import Select from "@mui/material/Select";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 
 export default function GradShootForm() {
@@ -306,8 +307,9 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates})
   }
   
   const shouldDisableDate = (date) => {
+    const today = new dayjs();
     var isBooked = bookedDates.find((bookedDate) => {
-      return date.isBefore(bookedDate) || (date.year() === bookedDate.year() && date.month() === bookedDate.month() && date.date() === bookedDate.date());
+      return date.isBefore(today) || (date.year() === bookedDate.year() && date.month() === bookedDate.month() && date.date() === bookedDate.date());
     })
     return isBooked !== undefined;
   };
