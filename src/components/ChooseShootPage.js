@@ -28,7 +28,6 @@ export default function ChooseShootPage() {
           <img className="otherPhoto photo" onClick={navigateToGradBookingPage} src={callumUppiesPortrait} alt="Grad Bookings"/>
           <div className="shootOptionFlexContainer"><div className="shootOptionText">Other</div></div>
         </div>
-        
       </div>
     </div>
   );

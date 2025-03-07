@@ -11,8 +11,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import { validEmail } from "../Regex";
 import { Checkbox, TextField } from "@mui/material";
 import { Button } from "@mui/material";
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+// import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+// import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+
+import joshJumpingPortrait from "../resources/joshjumping-scale-down.jpg";
 
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -48,8 +50,7 @@ export default function GradShootForm() {
 
     const formPages = [
       <PackageSelect formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
-      <ContactEntry formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
-      <DateSelect formData={formData} setFormData={setFormData} bookedDates={bookedDates} setIsCurrentPageValid={setIsCurrentPageValid}/>,
+      <DateContactEntry formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid} bookedDates={bookedDates} displayTitle={false}/>,
       <LocationSelect formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
       <ReviewPage formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsCurrentPageValid}/>,
       <ConfirmationPage formData={formData}/>
@@ -94,8 +95,8 @@ export default function GradShootForm() {
                 {formPages[page-1]}
               </div>
               <div className="navigationButtons">
-                {(page > 1 && page < formPages.length) && <Button className="gradShootFormButton back" variant="outlined" color="diana" startIcon={<ArrowLeftIcon/>} onClick={() => changePage(-1)}>{leftButtonText}</Button>}
-                {(page < formPages.length) && <Button className="gradShootFormButton next" variant="contained" color="diana" endIcon={<ArrowRightIcon/>} disabled={!isCurrentPageValid} onClick={() => changePage(1)}>{rightButtonText}</Button>}
+                {(page > 1 && page < formPages.length) && <Button className="gradShootFormButton back" variant="outlined" color="diana"  onClick={() => changePage(-1)}>{leftButtonText}</Button>}
+                {(page < formPages.length) && <Button className="gradShootFormButton next" variant="contained" color="diana"  disabled={!isCurrentPageValid} onClick={() => changePage(1)}>{rightButtonText}</Button>}
               </div>
           </div>
         </div>
@@ -104,7 +105,7 @@ export default function GradShootForm() {
 }
 
 
-function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
+function PackageSelect({ formData, setFormData, setIsCurrentPageValid, displayTitle=true}) {
   const handleChangePhotoPackage = (e) => {
     setFormData({...formData, photoPackageTitle: e.target.value, photoPackageID: e.target.id});
     checkIsPageValid();
@@ -145,7 +146,7 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
   const buttonMarkupList = createbuttonMarkupList();
   return (
     <div className="packageSelect page">
-      <h2 className="formSectionHeader">Select a Photo Package</h2>
+      {displayTitle && <h2 className="formSectionHeader">Select a Photo Package</h2>}
       <div className="formSectionBody packageSelectContainer">
         <ul className="packageList">{buttonMarkupList}</ul>
         <div className="packageDescriptionContainer">
@@ -153,7 +154,7 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
           {formData.photoPackageID && <ul className="packageDescription body">
             <li><div className="packageDescription numClients">{GRAD_PACKAGE_INFO.get(formData.photoPackageID)?.numClients}</div></li>
             <li><div className="packageDescription description">{GRAD_PACKAGE_INFO.get(formData.photoPackageID)?.description}</div></li>
-            <li><div className="packageDescription duration">Time:{GRAD_PACKAGE_INFO.get(formData.photoPackageID)?.duration}</div></li>
+            <li><div className="packageDescription duration">Time: {GRAD_PACKAGE_INFO.get(formData.photoPackageID)?.duration}</div></li>
           </ul>}
         </div>
       </div>
@@ -162,7 +163,7 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid}) {
 }
 
 
-function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
+function ContactEntry({formData, setFormData, setIsCurrentPageValid, displayTitle}) {
   const isFirstNameValid = (firstName) => {
     return firstName !== "" && firstName !== null && firstName !== undefined;
   }
@@ -259,7 +260,7 @@ function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
   
   return (
     <div className="contactEntry page">
-      <h2 className="formSectionHeader">Contact Information</h2>
+      {displayTitle && <h2 className="formSectionHeader">Contact Information</h2> }
       <div className="formSectionBody">
         <FormControl fullWidth>
           <div className="formSectionRow">
@@ -271,8 +272,8 @@ function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
           </div>
           <FormControl fullWidth>
             <div className="contactMethodContainer">
-              <TextField className="contactMethodInput" id="contactInput" label="Email" variant="standard" required={true} defaultValue={formData.email} onChange={handleChangeEmail}/>
-              <TextField className="contactMethodInput" id="contactInput" label="Phone" variant="standard" required={true} defaultValue={formData.phone} onChange={handleChangePhone}/>
+              <TextField className="formSectionItem" id="contactInput" label="Email" variant="standard" required={true} defaultValue={formData.email} onChange={handleChangeEmail}/>
+              <TextField className="formSectionItem" id="contactInput" label="Phone" variant="standard" required={true} defaultValue={formData.phone} onChange={handleChangePhone}/>
             </div>
             <div className="contactMethodRadioButtonsContainer">
               <FormLabel id="demo-radio-buttons-group-label" required={true}>Preferred Contact Method</FormLabel>
@@ -289,7 +290,7 @@ function ContactEntry({formData, setFormData, setIsCurrentPageValid}) {
 }
 
 
-function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates}) {  
+function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates, displayTitle=true}) {  
   const handleClearDate = () => {
     setFormData({...formData, date: null});
   }
@@ -328,26 +329,48 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates})
 
   return (
     <div className="dateSelect page">
-      <h2 className="formSectionHeader">Select a Shoot Date</h2>
+      {displayTitle && <h2 className="formSectionHeader">Select a Shoot Date</h2>}
       <div className="formSectionBody">
         <div className="calendar">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <StaticDatePicker value={formData?.date} onChange={handleChangeDate} shouldDisableDate={shouldDisableDate} slots={{actionBar: () => {return<></>}}} />
             <ThemeProvider theme={dianaTheme}>
-              <Button color="diana" onClick={handleClearDate}>CLEAR</Button>
+              <div className="clearButtonContainer">
+                <Button className="clearButton" variant="outlined" color="diana" onClick={handleClearDate}>CLEAR</Button>
+              </div>
             </ThemeProvider>
           </LocalizationProvider>
         </div>
-      </div>    
+      </div>
     </div>
   );
 }
 
-function DateContactEntry({formData, setFormData, setIsCurrentPageValid, bookedDates}) {
-  
+function DateContactEntry({formData, setFormData, setIsCurrentPageValid, bookedDates, displayTitle=true}) {
+  const [isDateSelectValid, setIsDateSelectValid] = useState(false);
+  const [isContactEntryValid, setIsContactEntryValid] = useState(false);
+
+  const checkIsFormValid = () => {
+    if (!isDateSelectValid || !isContactEntryValid) {
+      setIsCurrentPageValid(false);
+      return;
+    }
+    setIsCurrentPageValid(true);
+  }
+
+  checkIsFormValid();
+  return (
+    <div className="dateContactEntry page">
+      {displayTitle && <h2 className="formSectionHeader">Shoot Date and Contact Info:</h2>}
+      <div className="componentContainer">
+        <DateSelect formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsDateSelectValid} bookedDates={bookedDates} displayTitle={true}/>
+        <ContactEntry formData={formData} setFormData={setFormData} setIsCurrentPageValid={setIsContactEntryValid} displayTitle={true}/>
+      </div>
+    </div>
+  );
 }
 
-function LocationSelect({formData, setFormData, setIsCurrentPageValid}) {
+function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTitle=true}) {
   const schoolsList = [
     "UC Irvine",
     "UC Los Angeles",
@@ -397,7 +420,7 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid}) {
 
   return (
     <div className="locationSelect page">
-      <h2 className="formSectionHeader">Select Shoot Location</h2>
+      {displayTitle && <h2 className="formSectionHeader">Select Shoot Location</h2>}
       <div className="formSectionBody">
         <FormControl className="selectDropDownContainer" fullWidth>
           <InputLabel id="demo-simple-select-label">School</InputLabel>
@@ -405,11 +428,18 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid}) {
             {schoolsDropdownListItems}
           </Select>
         </FormControl>
-        <FormControl className="locationCheckboxes" aria-labelledby="location-select-checkbox-group" defaultValue={null} name="location-select-checkbox-group" onChange={(e) => handleLocationChange(e)}>
-          <h3>Campus Spots:</h3>
-          <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 1")}/>} value="Location 1" label="Location 1"/>
-          <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 2")}/>} value="Location 2" label="Location 2"/>
-          <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 3")}/>} value="Location 3" label="Location 3"/>
+        <FormControl className="photoSpotContainer" aria-labelledby="location-select-checkbox-group" defaultValue={null} name="location-select-checkbox-group" onChange={(e) => handleLocationChange(e)}>
+          <h3>Photo Spots:</h3>
+          <div className="photoSpotSelection">
+            <ul className="photoSpotCheckboxes">
+              <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 1")}/>} value="Location 1" label="Location 1"/>
+              <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 2")}/>} value="Location 2" label="Location 2"/>
+              <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 3")}/>} value="Location 3" label="Location 3"/>
+            </ul>
+            <div className="photoSpotImageContainer">
+              <img className="photoSpotImage" src={joshJumpingPortrait} alt="Grad Bookings"/>
+            </div>
+          </div>
         </FormControl>
       </div>
     </div>
@@ -420,7 +450,7 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid}) {
 /**
   * Displays the details of the appointment to the user.
   */
-function ReviewPage({formData, setFormData}) {
+function ReviewPage({formData, setFormData, displayTitle=true}) {
   
   const arrayShootSpots = [];
   formData.locations.forEach((location) => {
@@ -429,7 +459,7 @@ function ReviewPage({formData, setFormData}) {
   
   return (
     <div className="reviewPage page">
-      <h2 className="formSectionHeader">Review Appointment Details</h2>
+      {displayTitle && <h2 className="formSectionHeader">Review Appointment Details</h2>}
       <div className="appointmentDetailsContainer">
         <h3 className="reviewPage__contactHeader">Contact Details:</h3>
         <div className="reviewPage__firstNameContainer appointmentDetailSection">

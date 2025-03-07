@@ -16,6 +16,7 @@ import dayjs from "dayjs";
  * @property {string} photoPackageID - Identifier code for selected photo package type 
  * @property {string} photoPackageTitle - Title of selected photo package
  * @property {dayjs} date - date of the appointment
+ * @property {dayjs} submissionDate - date booking was submitted
  * @property {Array<string>} locations - array of shoot locations
  */
 
@@ -63,7 +64,8 @@ async function deleteAllBookedAppointments() {
 async function bookAppointment (formData) {
   // Convert date from dayjs -> firestore Timestamp type
     const appointmentData = {...formData,
-      date: Timestamp.fromDate(formData.date.toDate())
+      date: Timestamp.fromDate(formData.date.toDate()),
+      submissionDate: Timestamp.fromDate(new Date())
     };
     addDoc(collection(db, "appointments"), appointmentData);
   }
