@@ -313,7 +313,7 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates, 
     } else {
       setFormData({...formData, date: null});
     }
-    checkIsFormValid();
+    //checkIsFormValid();
     console.log(formData);
   }
   
@@ -325,7 +325,7 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates, 
     return isBooked !== undefined;
   }
 
-  checkIsFormValid();
+  //checkIsFormValid();
 
   return (
     <div className="dateSelect page">
@@ -358,7 +358,7 @@ function DateContactEntry({formData, setFormData, setIsCurrentPageValid, bookedD
     setIsCurrentPageValid(true);
   }
 
-  checkIsFormValid();
+  //checkIsFormValid();
   return (
     <div className="dateContactEntry page">
       {displayTitle && <h2 className="formSectionHeader">Shoot Date and Contact Info:</h2>}
@@ -416,12 +416,12 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
     setIsCurrentPageValid(true);
   }
 
-  checkIsFormValid();
+  //checkIsFormValid();
 
   return (
     <div className="locationSelect page">
       {displayTitle && <h2 className="formSectionHeader">Select Shoot Location</h2>}
-      <div className="formSectionBody">
+      <div className="formSectionBody locationSelectContainer">
         <FormControl className="selectDropDownContainer" fullWidth>
           <InputLabel id="demo-simple-select-label">School</InputLabel>
           <Select labelId="demo-simple-select-label" id="demo-simple-select" label="school" defaultValue={formData.school} onChange={(e) => setFormData({...formData, school: e.target.value,})}>
@@ -429,15 +429,19 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
           </Select>
         </FormControl>
         <FormControl className="photoSpotContainer" aria-labelledby="location-select-checkbox-group" defaultValue={null} name="location-select-checkbox-group" onChange={(e) => handleLocationChange(e)}>
-          <h3>Photo Spots:</h3>
+          <h3 className="photoSpotTitle">Photo Spots:</h3>
           <div className="photoSpotSelection">
-            <ul className="photoSpotCheckboxes">
-              <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 1")}/>} value="Location 1" label="Location 1"/>
-              <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 2")}/>} value="Location 2" label="Location 2"/>
-              <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 3")}/>} value="Location 3" label="Location 3"/>
-            </ul>
+            <div classname="photoSpotCheckboxesContainer">
+              test1
+              {/* <ul className="photoSpotCheckboxes">
+                <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 1")}/>} value="Location 1" label="Location 1"/>
+                <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 2")}/>} value="Location 2" label="Location 2"/>
+                <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 3")}/>} value="Location 3" label="Location 3"/>
+              </ul> */}
+            </div>
             <div className="photoSpotImageContainer">
-              <img className="photoSpotImage" src={joshJumpingPortrait} alt="Grad Bookings"/>
+              test2
+              {/* <img className="photoSpotImage" src={joshJumpingPortrait} alt="Grad Bookings"/> */}
             </div>
           </div>
         </FormControl>
