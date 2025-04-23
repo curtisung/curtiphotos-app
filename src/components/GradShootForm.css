@@ -82,7 +82,7 @@ Buttons
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  padding: 0 0 0 0;
+  padding: 0 1rem;
   margin: 0;
   gap:1rem;
   min-width: 50%;
@@ -220,10 +220,6 @@ Location
   width: 11rem !important; 
 }
 
-.photoSpotTitle {
-  margin: 2rem 0 0 3rem;
-}
-
 .photoSpotContainer {
   display: flex;
   flex-direction: column;
@@ -237,25 +233,50 @@ Location
 }
 
 .photoSpotCheckboxesContainer {
-  flex-grow: 1;
-}
-
-.photoSpotCheckboxes {
-  flex-grow: 1;
-  margin: 0.75rem 0 0 0;
+  /* Flex Parent */
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-items: center;
+  
+
+  /* Flex-child*/
+  width: 45%;
+}
+
+.photospotCheckboxList {
+  margin: 0.75rem 0 0 0;
+  padding: 0;
+  width: 75%;
+
+  /*Flex Parent*/
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  /*Flex Child*/
+  flex-grow: 1;  
+}
+
+.photospotCheckbox {
+  padding: 1rem;
+  text-wrap: wrap;
 }
 
 .photoSpotImageContainer {
-  /* width:auto; */
-  flex-grow: 1;
+  /*Flex Parent*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /*Flex Child*/
+  /* flex-grow: 1; */
+  width: 35%;
 }
 
 .photoSpotImage {
-  width: 10rem;
+  width: 15rem;
   height: auto;
 }
 

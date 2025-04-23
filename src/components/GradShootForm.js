@@ -377,8 +377,13 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
     "UC Riverside",
     "UC San Diego"
   ];
+  const photospotListTemp = ["MSTB Archways","Aldrich Park (flowers, trees, grass fields, ring road)","Buildings from your college (ex. Business school, Arts school, etc.)"];
+
   const schoolsDropdownListItems = schoolsList.map((schoolStr) => {
     return <MenuItem value={schoolStr}>{schoolStr}</MenuItem>;
+  });
+  const photospotCheckboxList = photospotListTemp.map((locationStr) => {
+    return <FormControlLabel control={<Checkbox className="photospotCheckbox" defaultChecked={formData.locations.includes(locationStr)}/>} value={locationStr} label={locationStr}/>
   });
 
   const handleLocationChange = (e) => {
@@ -429,19 +434,20 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
           </Select>
         </FormControl>
         <FormControl className="photoSpotContainer" aria-labelledby="location-select-checkbox-group" defaultValue={null} name="location-select-checkbox-group" onChange={(e) => handleLocationChange(e)}>
-          <h3 className="photoSpotTitle">Photo Spots:</h3>
+          <h2 className="formSectionHeader">Select Photo Spots:</h2>
           <div className="photoSpotSelection">
-            <div classname="photoSpotCheckboxesContainer">
-              test1
-              {/* <ul className="photoSpotCheckboxes">
-                <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 1")}/>} value="Location 1" label="Location 1"/>
-                <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 2")}/>} value="Location 2" label="Location 2"/>
-                <FormControlLabel control={<Checkbox defaultChecked={formData.locations.includes("Location 3")}/>} value="Location 3" label="Location 3"/>
-              </ul> */}
+            <div className="photoSpotCheckboxesContainer">
+              {/**
+               * TODO: make the checkboxes dynamically generated. Pull from a local consts file (or from db)
+               * Data formatted as map with {school: {locations: [location1, 2, 3], imagePath: /path/to/image}}
+               * TODO: On hover, pull example from that location
+               */}
+              <ul className="photospotCheckboxList">
+                {photospotCheckboxList}
+              </ul>
             </div>
             <div className="photoSpotImageContainer">
-              test2
-              {/* <img className="photoSpotImage" src={joshJumpingPortrait} alt="Grad Bookings"/> */}
+              <img className="photoSpotImage" src={joshJumpingPortrait} alt="Grad Bookings"/>
             </div>
           </div>
         </FormControl>
