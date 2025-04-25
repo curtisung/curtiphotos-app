@@ -1,6 +1,7 @@
 .gradShootForm {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
@@ -9,12 +10,13 @@
 }
 
 .formSection {
+  background-color: white;
   display: flex;
-  /* align-items: center; */
   flex-direction: column;
-  width: 100%;
   justify-content: center;
-
+  width: 54rem;
+  padding: 0 3rem;
+  margin-bottom: 1rem;
 }
 
 .formSectionContainer {
@@ -79,37 +81,42 @@ Buttons
 }
 
 .packageList {
+  /* flex child */
+  flex-grow: 1;
+  width: 50%;
+  padding: 0 1rem 0 0;
+  margin: 0;
+
+  /* flex parent */
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  padding: 0 1rem;
-  margin: 0;
   gap:1rem;
-  min-width: 50%;
   align-items: center;
-
-  /* properties as child */
-  flex-grow: 1;
 }
 
 .packageButton {
-  width: 27rem;
-  max-width: 100%;
+  width: 20rem;
+  /* max-width: 100%; */
 }
 
 .packageDescriptionContainer {
+  /* flex child */
+  flex-grow: 1;
+  width: 50%;
+  padding: 0 0 0 1rem;
+  
+  /* Flex Parent*/
   display: flex;
   flex-direction: column;
   align-items: start;
   height: 100%;
-  min-width: 50%;
   text-wrap: wrap;
-
-  /* properties as child */
-  flex-grow: 1;
 }
 
 .packageDescription.title {
+  /*flex child*/
+  flex-grow:1;
   width: 100%;
   font-size: 2rem;
   text-align: left;
@@ -143,7 +150,7 @@ Date Contact Entry
 
 .componentContainer .page {
   width: auto !important;
-  padding: 0 2.5rem;
+  padding: 0 1rem;
 }
 
 
@@ -292,24 +299,46 @@ Review Page
 .appointmentDetailSection {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.sectionHeaderContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 30%;
+
+}
+
+.appointmentDetailSectionHeader {
+  justify-self: center;
+  margin: 5px 0;
+}
+
+.appointmentDetailSectionBody {
+  padding-left: 2rem;
+  width: 70%;
+}
+
+
+.appointmentDetailSubSection {
+  display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 10px;
 }
 
-.appointmentDetailSection > h4 {
+.appointmentDetailSubSection > h4 {
   text-align: left;
   margin: 5px 0;
 }
 
-.appointmentDetailSection > p {
+.appointmentDetailSubSection > p {
   margin: 5px 0;
 
 }
 
-.appointmentDetailsContainer > h3 {
-  align-self: center;
-  margin: 10px 0;
-}
 
 .reviewPage__spotsList{
   margin-bottom: 0;
@@ -331,4 +360,25 @@ Confirmation Page
 
 .ConfirmationPage {
   text-align: center;
+}
+
+.confirmationMessage {
+  padding-top: 3rem;
+}
+
+
+@media screen and (max-width: 1000px) {
+  .formSection {
+    width: 34rem;
+  }
+
+  .packageButton {
+    width: 15rem;
+    /* max-width: 100%; */
+  }
+  
+  .componentContainer {
+    flex-direction: column;
+    align-items: center;
+  }
 }

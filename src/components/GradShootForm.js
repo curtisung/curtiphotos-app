@@ -11,8 +11,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import { validEmail } from "../Regex";
 import { Checkbox, TextField } from "@mui/material";
 import { Button } from "@mui/material";
-// import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-// import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 import joshJumpingPortrait from "../resources/joshjumping-scale-down.jpg";
 
@@ -147,6 +145,12 @@ function PackageSelect({ formData, setFormData, setIsCurrentPageValid, displayTi
   return (
     <div className="packageSelect page">
       {displayTitle && <h2 className="formSectionHeader">Select a Photo Package</h2>}
+      {/* <div className="testFlexContainer">
+        <div className="child1">child1</div>
+        <div className="child2">I'm a child 2</div>
+
+      </div> */}
+      
       <div className="formSectionBody packageSelectContainer">
         <ul className="packageList">{buttonMarkupList}</ul>
         <div className="packageDescriptionContainer">
@@ -223,37 +227,31 @@ function ContactEntry({formData, setFormData, setIsCurrentPageValid, displayTitl
   const handleChangeFirstName = (e) => {
     setFormData({...formData, firstName: e.target.value}); 
     checkIsPageValid(); 
-    console.log(formData);
   };
 
   const handleChangeLastName = (e) => {
     setFormData({...formData, lastName: e.target.value}); 
     checkIsPageValid();
-    console.log(formData);  
   };
 
   const handleChangePronouns = (e) => {
     setFormData({...formData, pronouns: e.target.value});
     checkIsPageValid();
-    console.log(formData);
   }
 
   const handleChangeEmail = (e) => {
     setFormData({...formData, email: e.target.value});
     checkIsPageValid();
-    console.log(formData);
   }
 
   const handleChangePhone = (e) => {
     setFormData({...formData, phone: e.target.value});
     checkIsPageValid();
-    console.log(formData);
   }
 
   const handleChangeContactMethod = (e) => {
     setFormData({...formData, contactMethod: e.target.value});
     checkIsPageValid();
-    console.log(formData);
   }
 
   checkIsPageValid();
@@ -313,8 +311,6 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates, 
     } else {
       setFormData({...formData, date: null});
     }
-    //checkIsFormValid();
-    console.log(formData);
   }
   
   const shouldDisableDate = (date) => {
@@ -325,7 +321,7 @@ function DateSelect({formData, setFormData, setIsCurrentPageValid, bookedDates, 
     return isBooked !== undefined;
   }
 
-  //checkIsFormValid();
+  checkIsFormValid();
 
   return (
     <div className="dateSelect page">
@@ -358,7 +354,7 @@ function DateContactEntry({formData, setFormData, setIsCurrentPageValid, bookedD
     setIsCurrentPageValid(true);
   }
 
-  //checkIsFormValid();
+  checkIsFormValid();
   return (
     <div className="dateContactEntry page">
       {displayTitle && <h2 className="formSectionHeader">Shoot Date and Contact Info:</h2>}
@@ -371,6 +367,8 @@ function DateContactEntry({formData, setFormData, setIsCurrentPageValid, bookedD
 }
 
 function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTitle=true}) {
+  const [schoolSelected, setSchoolSelected] = useState(false)
+  
   const schoolsList = [
     "UC Irvine",
     "UC Los Angeles",
@@ -395,11 +393,17 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
         return location !== e.target.value });
     }
     setFormData({...formData, locations: locations});
-    checkIsFormValid()
+    // checkIsFormValid();
+  }
+
+  const handleSchoolChange = (e) => {
+    setFormData({...formData, school: e.target.value,})
+    setSchoolSelected(e.target.value);
+    // checkIsFormValid();
   }
 
   const isSchoolValid = (school) => {
-    return schoolsList.includes(school);
+    return schoolsList.includes(school);   
   }
 
   const isLocationsValid = (locations) => {
@@ -407,9 +411,6 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
   }
 
   const checkIsFormValid = () => {
-    console.log(formData);
-    console.log(formData.locations.length);
-
     if (!isSchoolValid(formData.school)) {
       setIsCurrentPageValid(false);
       return;
@@ -421,7 +422,7 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
     setIsCurrentPageValid(true);
   }
 
-  //checkIsFormValid();
+  checkIsFormValid();
 
   return (
     <div className="locationSelect page">
@@ -429,10 +430,11 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
       <div className="formSectionBody locationSelectContainer">
         <FormControl className="selectDropDownContainer" fullWidth>
           <InputLabel id="demo-simple-select-label">School</InputLabel>
-          <Select labelId="demo-simple-select-label" id="demo-simple-select" label="school" defaultValue={formData.school} onChange={(e) => setFormData({...formData, school: e.target.value,})}>
+          <Select labelId="demo-simple-select-label" id="demo-simple-select" label="school" defaultValue={formData.school} onChange={(e) => handleSchoolChange(e)}>
             {schoolsDropdownListItems}
           </Select>
         </FormControl>
+        {schoolSelected && 
         <FormControl className="photoSpotContainer" aria-labelledby="location-select-checkbox-group" defaultValue={null} name="location-select-checkbox-group" onChange={(e) => handleLocationChange(e)}>
           <h2 className="formSectionHeader">Select Photo Spots:</h2>
           <div className="photoSpotSelection">
@@ -451,6 +453,7 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
             </div>
           </div>
         </FormControl>
+        }
       </div>
     </div>
   );
@@ -471,44 +474,62 @@ function ReviewPage({formData, setFormData, displayTitle=true}) {
     <div className="reviewPage page">
       {displayTitle && <h2 className="formSectionHeader">Review Appointment Details</h2>}
       <div className="appointmentDetailsContainer">
-        <h3 className="reviewPage__contactHeader">Contact Details:</h3>
-        <div className="reviewPage__firstNameContainer appointmentDetailSection">
-          <h4 className="reviewPage__firstName">First Name:</h4>
-          <p>{formData?.firstName}</p>
+        <div className="appointmentDetailSection">
+          <div className="sectionHeaderContainer">
+            <h4 className="appointmentDetailSectionHeader">Contact Information</h4>
+          </div>
+          <div className="appointmentDetailSectionBody">
+            <div className="reviewPage__firstNameContainer appointmentDetailSubSection">
+              <h4 className="reviewPage__firstName">First Name:</h4>
+              <p>{formData?.firstName}</p>
+            </div>
+            <div className="reviewPage__lastNameContainer appointmentDetailSubSection">
+              <h4 className="reviewPage__lastName">Last Name</h4>
+              <p>{formData?.lastName}</p>
+            </div>
+            <div className="reviewPage__pronounsContainer appointmentDetailSubSection">
+              <h4 className="reviewPage__pronouns">Pronouns:</h4>
+              <p>{formData?.pronouns}</p>
+            </div>
+            <div className="reviewPage__phoneNumberContainer appointmentDetailSubSection">
+              <h4 className="reviewPage__phone">Phone:</h4>
+              <p>{formData?.phone}</p>
+            </div>
+            <div className="reviewPage__emailContainer appointmentDetailSubSection">
+              <h4 className="reviewPage__email">Email:</h4>
+              <p>{formData?.email}</p>
+            </div>
+            <div className="reviewPage__phoneNumberContainer appointmentDetailSubSection">
+              <h4 className="reviewPage__contactMethod">Preferred Contact Method:</h4>
+              <p>{formData?.contactMethod}</p>
+            </div>
+          </div>
         </div>
-        <div className="reviewPage__lastNameContainer appointmentDetailSection">
-          <h4 className="reviewPage__lastName">Last Name:</h4>
-          <p>{formData?.lastName}</p>
+        <div className="appointmentDetailSection">
+          <div className="sectionHeaderContainer">
+            <h4 className="appointmentDetailSectionHeader">Location</h4>
+          </div>
+          <div className="appointmentDetailSectionBody">
+            <div className="reviewPage__locationsContainer appointmentDetailSubSection">
+              <h4 className="reviewPage__school">School:</h4>
+              <p>{formData?.school}</p>
+            </div>
+            <div className="reviewPage__locationsContainer appointmentDetailSubSection">
+              <h4 className="reviewPage__spots">Photo Spots:</h4>
+            </div>
+            <ul className="reviewPage__spotsList">{arrayShootSpots}</ul>
+          </div>
         </div>
-        <div className="reviewPage__pronounsContainer appointmentDetailSection">
-          <h4 className="reviewPage__pronouns">Pronouns:</h4>
-          <p>{formData?.pronouns}</p>
-        </div>
-        <div className="reviewPage__phoneNumberContainer appointmentDetailSection">
-          <h4 className="reviewPage__phone">Phone:</h4>
-          <p>{formData?.phone}</p>
-        </div>
-        <div className="reviewPage__emailContainer appointmentDetailSection">
-          <h4 className="reviewPage__email">Email:</h4>
-          <p>{formData?.email}</p>
-        </div>
-        <div className="reviewPage__phoneNumberContainer appointmentDetailSection">
-          <h4 className="reviewPage__contactMethod">Preferred Contact Method:</h4>
-          <p>{formData?.contactMethod}</p>
-        </div>
-        <h3 className="reviewPage_locationsTitle">Location:</h3>
-        <div className="reviewPage__locationsContainer appointmentDetailSection">
-          <h4 className="reviewPage__school">School:</h4>
-          <p>{formData?.school}</p>
-        </div>
-        <div className="reviewPage__locationsContainer appointmentDetailSection">
-          <h4 className="reviewPage__spots">Selected Spots:</h4>
-        </div>
-        <ul className="reviewPage__spotsList">{arrayShootSpots}</ul>
-        <h3 className="reviewPage_dateTitle">Date:</h3>
-        <div className="reviewPage__dateContainer appointmentDetailSection">
-          <h4 className="reviewPage_dateTitle">Shoot Date:</h4>
-          <p>{formData?.date?.toString()}</p>
+        <div className="appointmentDetailSection">
+          <div className="sectionHeaderContainer">
+            <h4 className="appointmentDetailSectionHeader">Date</h4>
+          </div>
+          <div className="appointmentDetailSectionBody">
+            <div className="reviewPage__dateContainer appointmentDetailSubSection">
+              <h4 className="reviewPage_dateTitle">Shoot Date</h4>
+              <p>{formData?.date?.toString()}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -519,7 +540,7 @@ function ReviewPage({formData, setFormData, displayTitle=true}) {
 function ConfirmationPage({ formData }){
   return (
     <div className="ConfirmationPage">
-      Your appointment for {formData?.date?.toString()} has been booked. You will receive a confirmation email shortly.
+      <h4 className="confirmationMessage">Thank you for making an appointment! Your session is booked for {formData?.date?.toString()}. You will receive a confirmation email shortly.</h4>
     </div>
   );
 }
