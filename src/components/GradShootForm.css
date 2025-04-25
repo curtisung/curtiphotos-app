@@ -1,0 +1,384 @@
+.gradShootForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.page {
+  width: 100%;
+}
+
+.formSection {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 54rem;
+  padding: 0 3rem;
+  margin-bottom: 1rem;
+}
+
+.formSectionContainer {
+  /* min-height: 400px; */
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.formSectionHeader {
+  width: 100%;
+  text-align: center;
+  /* padding-left: 3rem; */
+  color: #3d0c11;
+  margin: 2rem 0 2rem 0  !important;
+}
+
+.formSectionBody {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    /* min-height: 325px; */
+    align-items: center;
+}
+
+.formSectionRow {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+}
+
+.formSectionItem {
+  flex: 1;
+}
+
+/*
+Buttons
+*/
+
+.navigationButtons {
+  padding: 2rem 5rem 1rem 0;
+  align-self: flex-end;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.gradShootFormButton {
+  width: 100px;
+  height: 40px;
+}
+
+
+/*Package Select*/
+.packageSelectContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;  
+}
+
+.packageList {
+  /* flex child */
+  flex-grow: 1;
+  width: 50%;
+  padding: 0 1rem 0 0;
+  margin: 0;
+
+  /* flex parent */
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap:1rem;
+  align-items: center;
+}
+
+.packageButton {
+  width: 20rem;
+  /* max-width: 100%; */
+}
+
+.packageDescriptionContainer {
+  /* flex child */
+  flex-grow: 1;
+  width: 50%;
+  padding: 0 0 0 1rem;
+  
+  /* Flex Parent*/
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  height: 100%;
+  text-wrap: wrap;
+}
+
+.packageDescription.title {
+  /*flex child*/
+  flex-grow:1;
+  width: 100%;
+  font-size: 2rem;
+  text-align: left;
+  text-wrap: none;
+  margin: 0;
+  padding: 0;
+}
+
+.packageDescription.body {
+  padding-top: 0;
+  padding-right: 2rem;
+  margin: 0;
+}
+
+.packageDescription {
+  padding-top: 2rem;
+  text-align: left;
+  font-size: 1rem;
+}
+
+
+/*
+Date Contact Entry
+*/
+.componentContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: center;
+}
+
+.componentContainer .page {
+  width: auto !important;
+  padding: 0 1rem;
+}
+
+
+/*
+Name Entry
+*/
+
+.formSectionItem {
+  margin: 1rem 0 !important;
+}
+
+.pronouns.selectDropDown {
+  flex: 1;
+}
+
+.contactMethodContainer {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.pronouns.selectDropDownContainer {
+  /* margin: 20px 0 0 0 !important; */
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.contactMethodRadioButtonsContainer {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.contactRadioButtons {
+  display: flex !important;
+  flex-direction: row !important;
+}
+
+/*
+Calendar Select
+*/
+
+.MuiPickersLayout-root {
+  background-color: transparent !important;
+}
+
+.clearButtonContainer {
+  display: flex;
+  align-items: center;
+}
+
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  
+}
+
+/*
+Location
+*/
+
+.locationSelect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.locationSelectContainer {
+  width:100%;
+}
+
+.locationSelect .selectDropDownContainer{
+  width: 11rem !important; 
+}
+
+.photoSpotContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.photoSpotSelection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.photoSpotCheckboxesContainer {
+  /* Flex Parent */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  
+
+  /* Flex-child*/
+  width: 45%;
+}
+
+.photospotCheckboxList {
+  margin: 0.75rem 0 0 0;
+  padding: 0;
+  width: 75%;
+
+  /*Flex Parent*/
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  /*Flex Child*/
+  flex-grow: 1;  
+}
+
+.photospotCheckbox {
+  padding: 1rem;
+  text-wrap: wrap;
+}
+
+.photoSpotImageContainer {
+  /*Flex Parent*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /*Flex Child*/
+  /* flex-grow: 1; */
+  width: 35%;
+}
+
+.photoSpotImage {
+  width: 15rem;
+  height: auto;
+}
+
+/*
+Review Page
+*/
+.appointmentDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.appointmentDetailSection {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.sectionHeaderContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 30%;
+
+}
+
+.appointmentDetailSectionHeader {
+  justify-self: center;
+  margin: 5px 0;
+}
+
+.appointmentDetailSectionBody {
+  padding-left: 2rem;
+  width: 70%;
+}
+
+
+.appointmentDetailSubSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.appointmentDetailSubSection > h4 {
+  text-align: left;
+  margin: 5px 0;
+}
+
+.appointmentDetailSubSection > p {
+  margin: 5px 0;
+
+}
+
+
+.reviewPage__spotsList{
+  margin-bottom: 0;
+}
+
+/*
+border
+*/
+.separationBorder {
+  width: 60px;
+  margin: 20px 0;
+  border-top:  1px solid #3d0c11;
+}
+
+
+/*
+Confirmation Page
+*/
+
+.ConfirmationPage {
+  text-align: center;
+}
+
+.confirmationMessage {
+  padding-top: 3rem;
+}
+
+
+@media screen and (max-width: 1000px) {
+  .formSection {
+    width: 34rem;
+  }
+
+  .packageButton {
+    width: 15rem;
+    /* max-width: 100%; */
+  }
+  
+  .componentContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+}

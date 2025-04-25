@@ -1,13 +1,60 @@
-.landingPage__bookButtonContainer {
+@font-face {
+    font-family: 'vintageGoods'; /*a name to be used later*/
+    src: url('http://domain.example/fonts/font.ttf'); /*URL to font*/
+}
+
+.greetingCard {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%,-48%);
+}
+
+.greetingCardHeading {
+    text-wrap: nowrap;
+    font-family: Playfair Display;
+    font-weight: 400;
+    font-size: 7rem;
+}
+
+.greetingCardHeading__hello {
+    color: #e1bd41;
+}
+
+.greetingCardHeading__curtis {
+    color: #3d0c11;
+}
+
+.greetingCardTagline {
+    color: #191919;
+    padding: .75rem 0 0 0;
+    text-align: center;
+}
+
+.navLinkList {
+    position: absolute;
+    top: 87%;
+    left: 50%;
+    transform: translate(-50%,-87%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.navLink {
+    padding: 0 4rem;
+    text-wrap: nowrap;
+    color: #3d0c11;
+    cursor: pointer;
     padding-top: 10px;
     display: flex;
     justify-content: center;
 }
-
+/* 
 .landingPage__photos{
     display: flex;
     justify-content: center;
-    padding: 10px 100px;
+    padding: 90px 100px;
     column-gap: 30px;
 }
 
@@ -29,8 +76,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    /*border-color: black;
-    border-width: 2px;*/
     font-size: 40px;     
     text-shadow: 0 0 3px #202020, 0 0 5px #444444;
 
@@ -49,4 +94,4 @@
 .photo:hover {
     scale: 101%;
     box-shadow: 6px 8px 3px rgb(153, 153, 153);
-}
+} */
