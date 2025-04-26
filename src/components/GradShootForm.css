@@ -253,12 +253,12 @@ Location
   align-items: center;
   
   /* Flex-child*/
-  width: 45%;
+  width: 55%;
 }
 
 .photospotCheckboxList {
   margin: 0 0 0 0;
-  padding: 0;
+  padding: 0 0 0 20%;
   width: 100%;
 
   /*Flex Parent*/
@@ -289,10 +289,11 @@ Location
 
   /*Flex Child*/
   /* flex-grow: 1; */
-  width: 35%;
+  width: 45%;
 }
 
 .photoSpotImage {
+  padding-right: 10%;
   width: 15rem;
   height: auto;
 }
@@ -324,6 +325,7 @@ Review Page
 .appointmentDetailSectionHeader {
   justify-self: center;
   margin: 5px 0;
+  font-style: italic;
 }
 
 .appointmentDetailSectionBody {
@@ -381,5 +383,16 @@ Confirmation Page
   .componentContainer {
     flex-direction: column;
     align-items: center;
+  }
+
+  /* location */
+  .photospotCheckboxList {
+    padding-left: 5%;
+    width: 95%;
+  }
+
+  .photoSpotImage {
+    padding-right: 5%;
+    width: 95%;
   }
 }

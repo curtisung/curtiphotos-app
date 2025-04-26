@@ -366,9 +366,7 @@ function DateContactEntry({formData, setFormData, setIsCurrentPageValid, bookedD
   );
 }
 
-function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTitle=true}) {
-  const [schoolSelected, setSchoolSelected] = useState(false)
-  
+function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTitle=true}) {  
   const schoolsList = [
     "UC Irvine",
     "UC Los Angeles",
@@ -393,13 +391,10 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
         return location !== e.target.value });
     }
     setFormData({...formData, locations: locations});
-    // checkIsFormValid();
   }
 
   const handleSchoolChange = (e) => {
     setFormData({...formData, school: e.target.value,})
-    setSchoolSelected(e.target.value);
-    // checkIsFormValid();
   }
 
   const isSchoolValid = (school) => {
@@ -434,7 +429,7 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
             {schoolsDropdownListItems}
           </Select>
         </FormControl>
-        {schoolSelected && 
+        {formData.school && 
         <FormControl className="photoSpotContainer" aria-labelledby="location-select-checkbox-group" defaultValue={null} name="location-select-checkbox-group" onChange={(e) => handleLocationChange(e)}>
           <h2 className="formSectionHeader">Select Photo Spots:</h2>
           <div className="photoSpotSelection">
