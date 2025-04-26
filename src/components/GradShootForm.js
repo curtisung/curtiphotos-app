@@ -431,7 +431,7 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
         </FormControl>
         {formData.school && 
         <FormControl className="photoSpotContainer" aria-labelledby="location-select-checkbox-group" defaultValue={null} name="location-select-checkbox-group" onChange={(e) => handleLocationChange(e)}>
-          <h2 className="formSectionHeader">Select Photo Spots:</h2>
+          <h2 className="formSectionHeader">Select Photo Spots</h2>
           <div className="photoSpotSelection">
             <div className="photoSpotCheckboxesContainer">
               {/**
