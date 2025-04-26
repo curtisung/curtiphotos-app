@@ -11,9 +11,15 @@
 
 .formSection {
   background-color: white;
+  box-shadow: 10px 10px 10px 1px #b1a698;
+  border: 1px solid #b7a385;
+  border-radius: 25px;
+  
+  /* flex parent */
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   width: 54rem;
   padding: 0 3rem;
   margin-bottom: 1rem;
@@ -246,15 +252,14 @@ Location
   justify-content: flex-start;
   align-items: center;
   
-
   /* Flex-child*/
   width: 45%;
 }
 
 .photospotCheckboxList {
-  margin: 0.75rem 0 0 0;
+  margin: 0 0 0 0;
   padding: 0;
-  width: 75%;
+  width: 100%;
 
   /*Flex Parent*/
   display: flex;
@@ -269,6 +274,11 @@ Location
 .photospotCheckbox {
   padding: 1rem;
   text-wrap: wrap;
+}
+
+/* container for checkbox entry */
+.css-j204z7-MuiFormControlLabel-root {
+  padding: 0.5rem 0;
 }
 
 .photoSpotImageContainer {
@@ -307,7 +317,7 @@ Review Page
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-  width: 30%;
+  width: 35%;
 
 }
 
@@ -317,8 +327,8 @@ Review Page
 }
 
 .appointmentDetailSectionBody {
-  padding-left: 2rem;
-  width: 70%;
+  padding-left: 3rem;
+  width: 65%;
 }
 
 
@@ -342,15 +352,6 @@ Review Page
 
 .reviewPage__spotsList{
   margin-bottom: 0;
-}
-
-/*
-border
-*/
-.separationBorder {
-  width: 60px;
-  margin: 20px 0;
-  border-top:  1px solid #3d0c11;
 }
 
 
