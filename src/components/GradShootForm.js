@@ -367,14 +367,6 @@ function DateContactEntry({formData, setFormData, setIsCurrentPageValid, bookedD
 }
 
 function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTitle=true}) {  
-  const schoolsList = [
-    "UC Irvine",
-    "UC Los Angeles",
-    "UC Riverside",
-    "UC San Diego"
-  ];
-  const photospotListTemp = ["MSTB Archways","Aldrich Park (flowers, trees, grass fields, ring road)","Buildings from your college (ex. Business school, Arts school, etc.)"];
-
   const schoolsDropdownListItems = [];
   const photospotCheckboxList = [];
   
