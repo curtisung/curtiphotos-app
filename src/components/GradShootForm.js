@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import "./GradShootForm.css";
 import { bookAppointment, getBookedAppointments } from "../AppointmentHelperFunctions.js";
-import { GRAD_PACKAGE_INFO } from "../constants.js";
+import { GRAD_PACKAGE_INFO, PHOTO_LOCATION_DATA } from "../constants.js";
 
 import { dianaTheme } from "../themes.js";
 import { ThemeProvider } from "@mui/material/styles";
@@ -375,12 +375,19 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
   ];
   const photospotListTemp = ["MSTB Archways","Aldrich Park (flowers, trees, grass fields, ring road)","Buildings from your college (ex. Business school, Arts school, etc.)"];
 
-  const schoolsDropdownListItems = schoolsList.map((schoolStr) => {
-    return <MenuItem value={schoolStr}>{schoolStr}</MenuItem>;
-  });
-  const photospotCheckboxList = photospotListTemp.map((locationStr) => {
-    return <FormControlLabel control={<Checkbox className="photospotCheckbox" defaultChecked={formData.locations.includes(locationStr)}/>} value={locationStr} label={locationStr}/>
-  });
+  const schoolsDropdownListItems = [];
+  const photospotCheckboxList = [];
+  
+  for (const schoolName of Object.keys(PHOTO_LOCATION_DATA)) {
+    schoolsDropdownListItems.push(<MenuItem value={schoolName}>{schoolName}</MenuItem>);
+    console.log(schoolName)
+  }
+
+  if (formData.school) {
+    for (const [photoSpot, imgPath] of Object.entries(PHOTO_LOCATION_DATA[formData.school])) {
+      photospotCheckboxList.push(<FormControlLabel control={<Checkbox className="photospotCheckbox" defaultChecked={formData.locations.includes(photoSpot)}/>} value={photoSpot} label={photoSpot}/>);
+    }
+  }
 
   const handleLocationChange = (e) => {
     var locations = [...formData.locations];
@@ -438,13 +445,16 @@ function LocationSelect({formData, setFormData, setIsCurrentPageValid, displayTi
                * TODO: make the checkboxes dynamically generated. Pull from a local consts file (or from db)
                * Data formatted as map with {school: {locations: [location1, 2, 3], imagePath: /path/to/image}}
                * TODO: On hover, pull example from that location
+               * 
+               * create checkboxes. for each one they have an event handler that takes that id, queries the data center for
+               * the picture path using that ID, then sets a variable to that patch for use on the picture
                */}
               <ul className="photospotCheckboxList">
                 {photospotCheckboxList}
               </ul>
             </div>
             <div className="photoSpotImageContainer">
-              <img className="photoSpotImage" src={joshJumpingPortrait} alt="Grad Bookings"/>
+              <img className="photoSpotImage" src={joshJumpingPortrait}/>
             </div>
           </div>
         </FormControl>

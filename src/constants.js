@@ -49,4 +49,35 @@ const GRAD_PACKAGE_INFO = new Map([
     }]
   ])
 
-  export {GRAD_PACKAGE_INFO};
+
+const PHOTO_LOCATION_DATA = {
+  "UC Irvine" : {
+    "MSTB Archways" : "./resources/joshjumping-scale-down.jpg",
+    "Aldrich Park (flowers, trees, grass fields, ring road)" : "./resources/michael-portrait-scale-down.jpg",
+    "Buildings from your college (ex. Business school for Business Majors, Arts school for Arts majors, etc.)" : "",
+    "Infinity Fountain" : "",
+    "University of California sign" : "",
+    "Student Center (terrace, Peter statues)" : "",
+    "Bren Events Center (Peter statue, water tower)" : "",
+    "Langson Library / Gateway" : "",
+  },
+  "UCLA" : {
+    "Location 1" : "./resources/joshjumping-scale-down.jpg",
+    "Location 2" : "./resources/michael-portrait-scale-down.jpg",
+  },
+  "UCSD" : {
+    "Beach Bridge" : "./resources/michael-portrait-scale-down.jpg",
+    "Library" : "./resources/joshjumping-scale-down.jpg", 
+  },
+  "Cal Poly Pomona" : {
+    "Japanese Garden" : "",
+    "Gazebo Flower Garden" : ""
+  },
+  "UC Riverside" : {
+    "Clock Tower" : "",
+    "Hallway" : "",
+    "UCR Letters" : ""
+  }
+};
+
+export {GRAD_PACKAGE_INFO, PHOTO_LOCATION_DATA};
